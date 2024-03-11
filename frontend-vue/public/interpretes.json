@@ -1,0 +1,14 @@
+[
+    {"nombre": "Penélope Cruz", "nacimiento": "1974-04-28", "numGoya": 3},
+    {"nombre": "Javier Bardem", "nacimiento": "1969-03-01", "numGoya": 2},
+    {"nombre": "Antonio Banderas", "nacimiento": "1960-08-10", "numGoya": 1},
+    {"nombre": "Elena Anaya", "nacimiento": "1975-07-17", "numGoya": 0},
+    {"nombre": "Ricardo Darín", "nacimiento": "1957-01-16", "numGoya": 0},
+    {"nombre": "Emma Suárez", "nacimiento": "1964-03-25", "numGoya": 1},
+    {"nombre": "Mario Casas", "nacimiento": "1986-06-12", "numGoya": 1},
+    {"nombre": "Maribel Verdú", "nacimiento": "1970-10-02", "numGoya": 2},
+    {"nombre": "Ángela Molina", "nacimiento": "1955-10-05", "numGoya": 0},
+    {"nombre": "Quim Gutiérrez", "nacimiento": "1981-03-27", "numGoya": 1},
+    {"nombre": "Javier Cámara", "nacimiento": "1967-01-19", "numGoya": 1},
+    {"nombre": "Carmen Maura", "nacimiento": "1945-09-15", "numGoya": 2}
+]
