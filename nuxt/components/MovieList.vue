@@ -6,7 +6,7 @@
           <h2>{{ movie.title }}</h2>
           <p>{{ movie.description }}</p>
           <img :src="movie.image" alt="Movie Poster" />
-          <p> Fecha de lanzamiento: {{ movie.date }}</p>
+          <p>Fecha de lanzamiento: {{ movie.date }}</p>
         </li>
       </ul>
     </div>
