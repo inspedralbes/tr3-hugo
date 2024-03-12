@@ -32,7 +32,11 @@ jobs:
 
       - name: Verificar directorio actual en Nuxt
         run: ls
-
+      - name: Debug Current Directory
+        run: |
+          pwd
+          cd nuxt
+      
       - name: Despliegue a Producción
         run: |
           echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
