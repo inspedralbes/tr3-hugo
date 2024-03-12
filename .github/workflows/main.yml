@@ -15,7 +15,7 @@ jobs:
 
       - name: Instalar dependencias Laravel
         run: |
-          cd back/laravel
+          cd web/back/laravel
           composer install
           cp .env.example .env  # Copia el archivo .env si no existe
           php artisan key:generate
@@ -26,7 +26,7 @@ jobs:
 
       - name: Instalar dependencias de Nuxt
         run: |
-          cd nuxt
+          cd web/nuxt
           pwd  # Añadido para verificar el directorio actual
           npm install
 
@@ -36,7 +36,7 @@ jobs:
       - name: Debug Current Directory
         run: |
           pwd
-          cd nuxt
+          cd /web/nuxt
 
       - name: Despliegue a Producción
         run: |
@@ -44,7 +44,7 @@ jobs:
           chmod 600 ~/prod_key.pem
           cd ${{ github.workspace }}
         
-          cd back/laravel
+          cd web/back/laravel
           composer install --no-dev --optimize-autoloader
           php artisan config:cache
           php artisan route:cache
