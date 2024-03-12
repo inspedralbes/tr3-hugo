@@ -35,7 +35,9 @@ jobs:
         run: ls
 
       - name: Build de la aplicación Nuxt
-        run: npm run build
+        run: |
+          cd nuxt
+          npm run build
 
       - name: Despliegue a Producción
         run: |
