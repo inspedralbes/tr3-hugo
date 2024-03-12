@@ -23,7 +23,7 @@ jobs:
           
       - name: Instalar dependencias de Nuxt
         run: |
-          cd ../nuxt
+          cd ../../nuxt
           npm install
 
       - name: Verificar directorio actual en Nuxt
