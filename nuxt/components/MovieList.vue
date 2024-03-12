@@ -2,12 +2,12 @@
   <div>
     <h1>Lista de Películas</h1>
     <ul>
-      <li v-for="movie in movies" :key="movie.id">
+      <li v-for="movie in movies" :key="movie.id">        
         <h2>{{ movie.title }}</h2>
         <p>{{ movie.description }}</p>
         <img :src="movie.image" alt="Movie Poster" class="movie-image">
         <p>Fecha de lanzamiento: {{ movie.date }}</p>
-         <button class="buy-ticket-btn">Comprar Tickets</button>
+         <button class="buy-ticket-btn" @click="idcompra(movie.id)">Comprar Tickets</button>
 
       </li>
     </ul>
@@ -29,7 +29,14 @@ export default {
     } catch (error) {
       console.error('Error fetching movies:', error)
     }
+  },
+  methods: {
+    
+  idcompra(movieid){
+    console.log('IDCOMPRA', movieid)
+    navigateTo(`/${movieid}`)
   }
+}
 }
 </script>
 <style scoped>

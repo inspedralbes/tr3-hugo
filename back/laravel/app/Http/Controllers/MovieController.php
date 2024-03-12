@@ -14,4 +14,9 @@ class MovieController extends Controller
         $movies = Movie::all();
         return response()->json($movies);
     }
+    public function show($id)
+    {
+        $movie = Movie::find($id);
+        return response()->json($movie);
+    }
 }
