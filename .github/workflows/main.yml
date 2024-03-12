@@ -20,39 +20,39 @@ jobs:
           cp .env.example .env  # Copia el archivo .env si no existe
           php artisan key:generate
           php artisan migrate --force  # Configuración de la base de datos Laravel
-          
+
       - name: Verificar contenido del directorio actual
         run: ls
-        
+
       - name: Instalar dependencias de Nuxt
         run: |
-            cd nuxt
-            pwd  # Añadido para verificar el directorio actual
-            npm install
-      
+          cd nuxt
+          pwd  # Añadido para verificar el directorio actual
+          npm install
 
       - name: Verificar directorio actual en Nuxt
         run: ls
+
       - name: Despliegue a Producción
         run: |
           echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
           chmod 600 ~/prod_key.pem
           cd ${{ github.workspace }}
-          
+
           cd back/laravel
           composer install --no-dev --optimize-autoloader
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
           php artisan migrate --force
-          
-           cd ../nuxt
-           npm install
-           npm run build
-      
+
+          cd ../nuxt
+          npm install
+          npm run build
+
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" back/laravel/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/laravel
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ../nuxt/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/nuxt
           ssh -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} "cd /ruta/del/proyecto/laravel && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force"
-         
-       run: echo "🍏 This job's status is ${{ job.status }}."
-        
+
+      - name: Imprimir estado del trabajo
+        run: echo "🍏 This job's status is ${{ job.status }}."
