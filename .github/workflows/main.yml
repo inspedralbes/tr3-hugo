@@ -1,0 +1,56 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: |
+          npm install
+
+      - name: Build Nuxt.js
+        run: |
+          npm run build
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Install Composer Dependencies
+        run: |
+          composer install --no-interaction --prefer-dist
+
+      - name: Set up Laravel Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Migrate Database
+        run: |
+          php artisan migrate --force
+
+      - name: Deploy to Production
+        run: |
+          # Comandos para desplegar la aplicación en tu servidor de producción
+          # Puedes usar SCP, FTP, o cualquier otro método según tu configuración
+
+          # Ejemplo con SCP
+          scp -r * user@your-production-server:/path/to/production/directory
+
+          # Reiniciar el servidor web, si es necesario
+
