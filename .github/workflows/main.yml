@@ -17,8 +17,9 @@ jobs:
         run: |
           cd back/laravel
           composer install
+          cp .env.example .env  # Copia el archivo .env si no existe
           php artisan key:generate
-
+          
       - name: Configuración de la base de datos Laravel
         run: php artisan migrate --force
 
