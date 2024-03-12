@@ -39,6 +39,27 @@ jobs:
           cd nuxt
           npm run build
 
-      - name: Despliegue a Producción
-        run: |
-          # Aquí coloca tus comandos o scripts para desplegar a producción
+          - name: Despliegue a Producción
+          run: |
+            echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
+            chmod 600 ~/prod_key.pem
+            cd ${{ github.workspace }}
+            
+            # Despliegue de Laravel
+            cd back/laravel
+            composer install --no-dev --optimize-autoloader
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan migrate --force
+            
+            # Despliegue de Nuxt
+            cd ../nuxt
+            npm install
+            npm run build
+        
+            # Copiar archivos a servidor de producción
+            scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" back/laravel/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/laravel
+            scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ../nuxt/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/nuxt
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+        
