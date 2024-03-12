@@ -39,6 +39,7 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          php artisan config:cache
 
       - name: Migrate Database
         run: |
@@ -46,11 +47,8 @@ jobs:
 
       - name: Deploy to Production
         run: |
-          # Comandos para desplegar la aplicación en tu servidor de producción
-          # Puedes usar SCP, FTP, o cualquier otro método según tu configuración
-
-          # Ejemplo con SCP
-          scp -r * user@your-production-server:/path/to/production/directory
+          # Actualiza con los comandos específicos para tu despliegue
+          scp -r * a22hugtrigon@daw:~/web/tr3a22hugtrigon.daw.inspedralbes.cat/public_html
+          # Puedes utilizar otros métodos como FTP, Git, etc.
 
           # Reiniciar el servidor web, si es necesario
-
