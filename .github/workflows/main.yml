@@ -21,11 +21,14 @@ jobs:
           php artisan key:generate
           php artisan migrate --force  # Configuración de la base de datos Laravel
           
+      - name: Verificar contenido del directorio actual
+        run: ls
+        
       - name: Instalar dependencias de Nuxt
         run: |
-          cd ../../nuxt
-          pwd
-          npm install
+            cd ../../nuxt
+            pwd  # Añadido para verificar el directorio actual
+            npm install
 
       - name: Verificar directorio actual en Nuxt
         run: ls
