@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Despliegue a Producción
 
 on:
   push:
@@ -6,49 +6,30 @@ on:
       - main
 
 jobs:
-  deploy:
+  laravel-nuxt:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install Dependencies
+      - name: Instalar dependencias Laravel
         run: |
+          cd back/laravel
+          composer install
+          php artisan key:generate
+
+      - name: Configuración de la base de datos Laravel
+        run: php artisan migrate --force
+
+      - name: Instalar dependencias Nuxt
+        run: |
+          cd ../nuxt
           npm install
 
-      - name: Build Nuxt.js
+      - name: Build de la aplicación Nuxt
+        run: npm run build
+
+      - name: Despliegue a Producción
         run: |
-          npm run build
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-
-      - name: Install Composer Dependencies
-        run: |
-          composer install --no-interaction --prefer-dist
-
-      - name: Set up Laravel Environment
-        run: |
-          cp .env.example .env
-          php artisan key:generate
-          php artisan config:cache
-
-      - name: Migrate Database
-        run: |
-          php artisan migrate --force
-
-      - name: Deploy to Production
-        run: |
-          # Actualiza con los comandos específicos para tu despliegue
-          scp -r * a22hugtrigon@daw:~/web/tr3a22hugtrigon.daw.inspedralbes.cat/public_html
-          # Puedes utilizar otros métodos como FTP, Git, etc.
-
-          # Reiniciar el servidor web, si es necesario
+          # Aquí coloca tus comandos o scripts para desplegar a producción
