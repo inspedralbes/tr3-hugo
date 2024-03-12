@@ -26,9 +26,10 @@ jobs:
         
       - name: Instalar dependencias de Nuxt
         run: |
-            cd ../../nuxt
+            cd nuxt
             pwd  # Añadido para verificar el directorio actual
             npm install
+      
 
       - name: Verificar directorio actual en Nuxt
         run: ls
