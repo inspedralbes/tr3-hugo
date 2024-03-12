@@ -21,8 +21,11 @@ jobs:
           php artisan key:generate
           
       - name: Configuración de la base de datos Laravel
-        run: php artisan migrate --force
-
+        run: |
+            cd back/laravel
+            php artisan migrate --force
+        
+          
       - name: Instalar dependencias Nuxt
         run: |
           cd ../nuxt
