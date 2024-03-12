@@ -28,7 +28,9 @@ jobs:
           
       - name: Instalar dependencias Nuxt
         run: |
-          cd ../nuxt
+          cd ../
+          cd ../
+          cd nuxt
           npm install
 
       - name: Build de la aplicación Nuxt
