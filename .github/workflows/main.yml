@@ -54,6 +54,7 @@ jobs:
           cd ../../nuxt  # Update this line based on your directory structure
           npm install
           npm run build
+          cd ${{ github.workspace }}
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{secrets.PROD_USER }}@${{ secrets.PROD_HOST}}:/home/a22hugtrigon/web/tr3a22hugtrigon.daw.inspedralbes.cat/public_html
         
       - name: Imprimir estado del trabajo
