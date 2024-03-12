@@ -26,7 +26,7 @@ jobs:
             php artisan migrate --force
         
           
-      - name: Instalar dependencias Nuxt
+      - name: Instalar dependencias de Nuxt
         run: |
           cd ../
           cd ../
