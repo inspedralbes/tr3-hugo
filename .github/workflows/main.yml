@@ -19,23 +19,15 @@ jobs:
           composer install
           cp .env.example .env  # Copia el archivo .env si no existe
           php artisan key:generate
-          
-      - name: Configuración de la base de datos Laravel
-        run: |
-            cd back/laravel
-            php artisan migrate --force
-        
+          php artisan migrate --force  # Configuración de la base de datos Laravel
           
       - name: Instalar dependencias de Nuxt
         run: |
-          cd ../
-      - name: Verificar directorio actual
-        run: ls
-          cd ../
-          cd nuxt
-      - name: Verificar directorio actual
-        run: ls
+          cd ../nuxt
           npm install
+
+      - name: Verificar directorio actual en Nuxt
+        run: ls
 
       - name: Build de la aplicación Nuxt
         run: npm run build
