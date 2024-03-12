@@ -33,33 +33,26 @@ jobs:
 
       - name: Verificar directorio actual en Nuxt
         run: ls
-
-      - name: Build de la aplicación Nuxt
+      - name: Despliegue a Producción
         run: |
-          cd nuxt
-          npm run build
-
-          - name: Despliegue a Producción
-          run: |
-            echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
-            chmod 600 ~/prod_key.pem
-            cd ${{ github.workspace }}
-            
-            # Despliegue de Laravel
-            cd back/laravel
-            composer install --no-dev --optimize-autoloader
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            php artisan migrate --force
-            
-            # Despliegue de Nuxt
-            cd ../nuxt
-            npm install
-            npm run build
-        
-            # Copiar archivos a servidor de producción
-            scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" back/laravel/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/laravel
-            scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ../nuxt/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/nuxt
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
+          chmod 600 ~/prod_key.pem
+          cd ${{ github.workspace }}
+          
+          cd back/laravel
+          composer install --no-dev --optimize-autoloader
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          php artisan migrate --force
+          
+           cd ../nuxt
+           npm install
+           npm run build
+      
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" back/laravel/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/laravel
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ../nuxt/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}/ruta/del/proyecto/nuxt
+          ssh -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} "cd /ruta/del/proyecto/laravel && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force"
+         
+       run: echo "🍏 This job's status is ${{ job.status }}."
         
