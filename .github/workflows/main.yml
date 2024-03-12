@@ -36,7 +36,7 @@ jobs:
       - name: Debug Current Directory
         run: |
           pwd
-          cd /web/nuxt
+          cd ../web/nuxt
 
       - name: Despliegue a Producción
         run: |
