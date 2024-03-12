@@ -23,7 +23,7 @@ jobs:
           
       - name: Instalar dependencias de Nuxt
         run: |
-          cd ..\..\nuxt\
+          cd ../../nuxt
           pwd
           npm install
 
