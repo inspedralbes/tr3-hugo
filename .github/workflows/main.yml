@@ -55,7 +55,7 @@ jobs:
           npm install
           npm run build
           cd ${{ github.workspace }}
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web/* ${{secrets.PROD_USER }}@${{ secrets.PROD_HOST}}:/home/a22hugtrigon/web/tr3a22hugtrigon.daw.inspedralbes.cat/public_html
+          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./web ${{secrets.PROD_USER }}@${{ secrets.PROD_HOST}}:/home/a22hugtrigon/web/tr3a22hugtrigon.daw.inspedralbes.cat/public_html
         
       - name: Imprimir estado del trabajo
         run: echo "🍏 This job's status is ${{ job.status }}."
