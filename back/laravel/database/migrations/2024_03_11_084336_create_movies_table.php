@@ -14,6 +14,7 @@ class CreateMoviesTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('date');
+            $table->integer('total_seats')->default(100); // Agregar columna para el total de asientos
             $table->timestamps();
         });
     }
@@ -22,4 +23,4 @@ class CreateMoviesTable extends Migration
     {
         Schema::dropIfExists('movies');
     }
-};
+}

@@ -3,7 +3,7 @@
     <section class="hero">
       <h1 class="hero-title">¡Bienvenido a nuestro Cine!</h1>
       <p class="hero-subtitle">Descubre las últimas películas y compra tus entradas ahora</p>
-      <nuxt-link to="/entradas" class="cta btn-primary">Comprar entradas</nuxt-link>
+      <nuxt-link to="/movies" class="cta btn-primary">Comprar entradas</nuxt-link>
     </section>
     <section class="features">
       <div class="feature">
