@@ -1,4 +1,14 @@
 <template>
+  <div>
+    <div class="login-register-buttons">
+      <nuxt-link to="/Login" class="login-btn">
+        <img src="login_icon.png" alt="Login">
+      </nuxt-link>
+      <nuxt-link to="/Register" class="register-btn">
+        <img src="register_icon.png" alt="Register">
+      </nuxt-link>
+    </div>
+  </div>
   <div class="landing">
     <section class="hero">
       <h1 class="hero-title">¡Bienvenido a nuestro Cine!</h1>
@@ -48,11 +58,13 @@ export default {
   background-size: cover;
   background-position: center;
   color: #fff; /* Ajusta el color del texto según tu imagen de fondo */
+  font-family: 'Arial', sans-serif; /* Fuentes alternativas */
 }
 
 .hero-title {
   font-size: 3em;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
 }
 
 .hero-subtitle {
@@ -66,7 +78,7 @@ export default {
   margin-top: 20px;
   padding: 15px 30px;
   font-size: 1.2em;
-  background-color: #007BFF;
+  background-color: #ff6347; /* Rojo */
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -74,7 +86,7 @@ export default {
 }
 
 .cta:hover {
-  background-color: #0056b3;
+  background-color: #ff4500; /* Rojo oscuro */
 }
 
 .features {
@@ -92,6 +104,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  background-color: #f8f9fa; /* Gris claro */
 }
 
 .feature:hover {
@@ -102,7 +115,7 @@ export default {
 .feature-icon {
   font-size: 3em;
   margin-bottom: 20px;
-  color: #007BFF;
+  color: #ff6347; /* Rojo */
 }
 
 .feature h2 {
