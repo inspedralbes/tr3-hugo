@@ -1,145 +1,139 @@
 <template>
-    <div v-if="info_obtinguda">
-        {{ movies.id }}
-        <h2>{{ movies.title }}</h2>
-        <p>{{ movies.description }}</p>
-        <img :src="movies.image" alt="Movie Poster" class="movie-image">
-        <p>Fecha de lanzamiento: {{ movies.date }}</p>
-        <button @click="reservar">Reservar</button>
+  <div class="movie-details" v-if="movie">
+    <div class="movie-info">
+      <h2>{{ movie.title }}</h2>
+      <p>{{ movie.description }}</p>
+      <img :src="movie.image" alt="Movie Poster" class="movie-image">
+      <p>Fecha de lanzamiento: {{ movie.date }}</p>
+      <button @click="reservar">Reservar</button>
     </div>
 
-    <div v-if="fetchDataSeatsIsDone">
-        <h2>Asientos</h2>
-        <div class="asientos">
-            <div v-for="asiento in asientos" :key="asiento.id">
-                <img :src="asiento.occupied ? '/img/ocupada.png' : '/img/disponible.png'" alt="Asiento" style="width: 50px; height: 50px;" @click="clickAsiento(asiento.id)">
-                <p>{{ asiento.id }}</p>
-                <p>{{ asiento.occupied }}</p>
-                <p>{{ asiento.movie_id }}</p>
-                <button v-if="!asiento.occupied" @click="reservarAsiento(asiento.id)">Reservar</button>
-            </div>
+    <div class="seat-selection" v-if="seats.length">
+      <h2>Asientos</h2>
+      <div class="seats-container">
+        <div
+          v-for="seat in seats"
+          :key="seat.id"
+          @click="reservarAsiento(seat.id, seat.row, seat.column)"
+          :class="{ 'occupied': seat.occupied }"
+        >
+          <img
+            :src="seat.occupied ? '/img/ocupada.png' : '/img/disponible.png'"
+            alt="Asiento"
+            class="seat-image"
+          >
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            movies: null,
-            info_obtinguda: false,
-            asientos: [],
-            fetchDataSeatsIsDone: false,
-            id: null,
+  data() {
+    return {
+      movie: null,
+      seats: [],
+      id: null
+    };
+  },
+  methods: {
+    async fetchDataMovie() {
+      try {
+        const response = await fetch(`http://localhost:8000/api/movies/${this.id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        this.movie = await response.json();
+      } catch (error) {
+        console.error('Error fetching movie:', error);
+      }
     },
-    methods: {
-        async fetchDataMovie() {
-            try {
-                const response = await fetch(`http://localhost:8000/api/movies/${this.id}`);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                this.movies = data;
-                this.info_obtinguda = true;
-            } catch (error) {
-                console.error('Error fetching movie:', error);
-            }
-        },
-        async fetchDataSeats() {
-            try {
-                const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats`);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                this.asientos = data;
-                this.fetchDataSeatsIsDone = true;
-            } catch (error) {
-                console.error('Error fetching seats:', error);
-            }
-        },
-        async clickAsiento(id) {
-            try {
-                const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        occupied: !this.asientos.find(asiento => asiento.id === id).occupied
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                this.fetchDataSeats();
-            } catch (error) {
-                console.error('Error updating seat:', error);
-            }
-        },
-        async reservarAsiento(id) {
-            try {
-                const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${id}/reserve`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        occupied: true
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                this.fetchDataSeats();
-            } catch (error) {
-                console.error('Error reserving seat:', error);
-            }
-        },
+    async fetchDataSeats() {
+      try {
+        const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        this.seats = await response.json();
+      } catch (error) {
+        console.error('Error fetching seats:', error);
+      }
     },
-    async mounted() {
-        this.fetchDataMovie();
+    async reservarAsiento(id, row, column) {
+      try {
+        console.log(`Asiento seleccionado: Fila ${row}, Columna ${column}`);
+        const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${id}/reserve`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ id, occupied: true })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         this.fetchDataSeats();
+      } catch (error) {
+        console.error('Error reserving seat:', error);
+      }
     },
-    created() {
-        this.id = this.$route.params.id
-    },
-}
+    async reservar() {
+      // Lógica para reservar una película completa
+    }
+  },
+  async mounted() {
+    this.id = this.$route.params.id;
+    await this.fetchDataMovie();
+    await this.fetchDataSeats();
+  }
+};
 </script>
 
 <style scoped>
-h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #555;
+.movie-details {
+  display: flex;
+  justify-content: space-between;
 }
 
-p {
-    color: #777;
-    margin-bottom: 10px;
+.movie-info {
+  flex: 1;
+  margin-right: 20px;
 }
 
 .movie-image {
-    width: 200px;
-    height: 250px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
 }
 
-.asientos {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    margin-left: 60%;
+.seat-selection {
+  flex: 1;
+}
+
+.seats-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 5px;
+}
+
+.seats-container div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.seats-container div.occupied {
+  background-color: #ccc;
+}
+
+.seat-image {
+  width: 30px;
+  height: 30px;
 }
 </style>
+    

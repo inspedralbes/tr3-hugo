@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="login-register-buttons">
+    
+  <div class="landing">
+    <section class="hero"><div class="login-register-buttons">
       <nuxt-link to="/Login" class="login-btn">
-        <img src="login_icon.png" alt="Login">
+        <img src="../public/img/loginticket-removebg-preview.png" alt="Login">
       </nuxt-link>
       <nuxt-link to="/Register" class="register-btn">
-        <img src="register_icon.png" alt="Register">
+        <img src="../public/img/registerticket-removebg-preview.png" alt="Register">
       </nuxt-link>
     </div>
-  </div>
-  <div class="landing">
-    <section class="hero">
+ 
       <h1 class="hero-title">¡Bienvenido a nuestro Cine!</h1>
       <p class="hero-subtitle">Descubre las últimas películas y compra tus entradas ahora</p>
       <nuxt-link to="/movies" class="cta btn-primary">Comprar entradas</nuxt-link>
-    </section>
+    </section> </div>
     <section class="features">
       <div class="feature">
         <div class="feature-icon">
@@ -127,5 +127,26 @@ export default {
 .feature p {
   font-size: 1.1em;
   color: #555;
+}
+.login-register-buttons {
+  display: flex;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 100px;
+}
+
+.login-btn, .register-btn {
+  margin: 0 10px;
+}
+
+.login-btn img, .register-btn img {
+  width: 100px; /* Ajusta el tamaño según tus necesidades */
+  height: auto;
+}
+
+/* Estilos opcionales para los botones si deseas agregar efectos de hover */
+.login-btn:hover, .register-btn:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 </style>
