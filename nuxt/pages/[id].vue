@@ -5,25 +5,20 @@
       <p>{{ movie.description }}</p>
       <img :src="movie.image" alt="Movie Poster" class="movie-image">
       <p>Fecha de lanzamiento: {{ movie.date }}</p>
-      <button @click="reservar">Reservar</button>
+      <button class="reserve-button" @click="reservar">Reservar</button>
     </div>
 
     <div class="seat-selection" v-if="seats.length">
       <h2>Asientos</h2>
       <div class="seats-container">
-        <div
-          v-for="seat in seats"
-          :key="seat.id"
-          @click="reservarAsiento(seat.id, seat.row, seat.column)"
-          :class="{ 'occupied': seat.occupied }"
-        >
-          <img
-            :src="seat.occupied ? '/img/ocupada.png' : '/img/disponible.png'"
-            alt="Asiento"
-            class="seat-image"
-          >
+        <div v-for="seat in seats" :key="seat.id" @click="seleccionarAsiento(seat.id, seat.row, seat.column)"
+          :class="{ 'occupied': seat.occupied }">
+          <img :src="seat.occupied ? '/img/ocupada.png' : '/img/disponible.png'" alt="Asiento" class="seat-image">
         </div>
       </div>
+    <!-- button for confirm seats -->
+      <button class="reserve-button" @click="reservarAsiento(seat.id, seat.row, seat.column)">Reservar</button>
+  
     </div>
   </div>
 </template>
@@ -34,7 +29,8 @@ export default {
     return {
       movie: null,
       seats: [],
-      id: null
+      id: null,
+      selectedSeats: []
     };
   },
   methods: {
@@ -94,16 +90,38 @@ export default {
 .movie-details {
   display: flex;
   justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.pexels.com/photos/375885/pexels-photo-375885.jpeg?cs=srgb&dl=pexels-clem-onojeghuo-375885.jpg&fm=jpg');
+  color: white;
+  background-size: cover;
+  height: 100vh;
 }
 
 .movie-info {
-  flex: 1;
+  flex: 1.5;
   margin-right: 20px;
+  height: fit-content;
+  background-color: #d1d1d140;
 }
 
 .movie-image {
   width: 200px;
   height: 300px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.reserve-button {
+  background-color: #ff3366;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
   border-radius: 5px;
 }
 
@@ -136,4 +154,3 @@ export default {
   height: 30px;
 }
 </style>
-    

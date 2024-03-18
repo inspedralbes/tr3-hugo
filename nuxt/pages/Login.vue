@@ -5,11 +5,14 @@
         <input v-model="loginForm.email" type="email" placeholder="Correo electrónico" required class="login-input">
         <input v-model="loginForm.password" type="password" placeholder="Contraseña" required class="login-input">
         <button type="submit" @click="submitForm()" class="login-button">Iniciar sesión</button>
+        <!-- button with keyup enter -->
       </div>
     </div>
   </template>
   
-  <script>
+  <script>   
+ import { useUserStore } from '../store/User';
+
   export default {
     data() {
       return {
@@ -22,6 +25,7 @@
     },
     methods: {
         async submitForm() {
+          const userStore = useUserStore();
             try {
                 const response = await fetch(`http://localhost:8000/api/login`, {
                     method: 'POST',
@@ -35,6 +39,9 @@
                 if (response.ok) {
                     // Manejar la respuesta del inicio de sesión
                     const data = await response.json();
+                    //router push a la pagina de inicio
+                    userStore.setUser(data);
+                    this.$router.push('/');
                     console.log(data);
                     console.log('Inicio de sesión exitoso');
                 } else {
