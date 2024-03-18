@@ -104,7 +104,8 @@ p {
   margin-bottom: 10px;
   left: 11%;
 position: relative;
-  box-shadow: 0 0 11px 5px #e97101;  background-size: contain;
+  box-shadow: 0 0 11px 5px #e97101;  
+  background-size: contain;
   background-color: tomato;
   border-radius: 8px;
 }
