@@ -153,18 +153,20 @@ export default {
 
 .movie-info {
   margin-right: 20px;
-  height: fit-content;
-  background-color: #d1d1d140;
-  display: flex;
-  place-items: center;
-  border-radius: 5px;
-  flex-direction: column;
-  grid-area: carta;
+    height: -moz-fit-content;
+    height: 82%;
+    background-color: #d1d1d140;
+    display: flex;
+    place-items: center;
+    border-radius: 5px;
+    flex-direction: column;
+    grid-area: carta;
+    width: 610px;
 }
 
 .movie-image {
-  width: 200px;
-  height: 300px;
+  width: 394px;
+    height: 553px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }

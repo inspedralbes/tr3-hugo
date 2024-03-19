@@ -1,21 +1,27 @@
 <template>
-  <div>
+  <div class="body">
     <header class="page-header">
       <h1>¡Bienvenido a CineFlix!</h1>
       <p>Descubre las mejores películas en cartelera</p>
     </header>
     <div class="carousel-container">
-      <button class="carousel-btn prev" @click="prevSlide">&#10094;</button>
+      <button class="carousel-btn prev" @click="prevSlide" :disabled="currentIndex === 0">❮</button>
       <ul class="carousel-list">
-        <li v-for="(movie, index) in visibleMovies" :key="movie.id" :style="{ transform: 'translateX(' + (index * slideWidth) + 'px)' }">
-          <img :src="movie.image" alt="Movie Poster" class="movie-image">
-          <h2>{{ movie.title }}</h2>
-          <p>{{ movie.description }}</p>
-          <p>Fecha de lanzamiento: {{ movie.date }}</p>
-          <button class="buy-ticket-btn" @click="idcompra(movie.id)">Comprar Tickets</button>
+        <li v-for="(movie, index) in visibleMovies" :key="movie.id"
+          :style="{ transform: 'translateX(' + (index * slideWidth) + 'px)' }">
+          <div class="movie-card">
+            <img :src="movie.image" alt="Cartel de la película {{ movie.title }}" class="movie-image">
+            <div class="movie-details">
+              <h2>{{ movie.title }}</h2>
+              <p class="description">{{ movie.description }}</p>
+              <p><strong>Fecha de lanzamiento:</strong> {{ movie.date }}</p>
+              <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
+            </div>
+          </div>
         </li>
       </ul>
-      <button class="carousel-btn next" @click="nextSlide">&#10095;</button>
+      <button class="carousel-btn next" @click="nextSlide"
+        :disabled="currentIndex >= movies.length - numVisibleSlides">❯</button>
     </div>
   </div>
 </template>
@@ -26,7 +32,7 @@ export default {
     return {
       movies: [],
       currentIndex: 0,
-      slideWidth: 300, 
+      slideWidth: 300,
       numVisibleSlides: 3
     }
   },
@@ -57,27 +63,38 @@ export default {
         this.currentIndex++;
       }
     },
-    idcompra(movieid) {
-      console.log('IDCOMPRA', movieid)
-      navigateTo(`/${movieid}`)
+    buyTicket(movieId) {
+      console.log('ID de la película:', movieId);
+      // Aquí puedes agregar la lógica para comprar tickets
+      // Por ejemplo, redirigir a la página de compra de tickets
+       navigateTo(`/${movieId}`);
     }
   }
 }
 </script>
+
 <style scoped>
 /* Estilos para el componente */
+.body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #accdec;
+}
 div {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
-  background: #f4f4f4;
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
-<style>
+
 .carousel-container {
   position: relative;
   overflow: hidden;
+
 }
 
 .carousel-list {
@@ -98,6 +115,7 @@ div {
   cursor: pointer;
   padding: 10px;
   z-index: 2;
+  transition: background-color 0.3s ease;
 }
 
 .carousel-btn.prev {
@@ -108,10 +126,19 @@ div {
   right: 0;
 }
 
+.carousel-btn:disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
 .movie-image {
-  width: 100%;
+  width: 400px;
   height: auto;
   border-radius: 5px;
+}
+
+.movie-details {
+  padding: 10px;
 }
 
 .buy-ticket-btn {
@@ -121,5 +148,13 @@ div {
   padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
+}
+.movie-card {
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
