@@ -1,16 +1,22 @@
 <template>
   <div>
-    <h1>Lista de Películas</h1>
-    <ul>
-      <li v-for="movie in movies" :key="movie.id">
-        <img :src="movie.image" alt="Movie Poster" class="movie-image">
-        <h2>{{ movie.title }}</h2>
-        <p>{{ movie.description }}</p>
-        <p>Fecha de lanzamiento: {{ movie.date }}</p>
-        <button class="buy-ticket-btn" @click="idcompra(movie.id)">Comprar Tickets</button>
-
-      </li>
-    </ul>
+    <header class="page-header">
+      <h1>¡Bienvenido a CineFlix!</h1>
+      <p>Descubre las mejores películas en cartelera</p>
+    </header>
+    <div class="carousel-container">
+      <button class="carousel-btn prev" @click="prevSlide">&#10094;</button>
+      <ul class="carousel-list">
+        <li v-for="(movie, index) in visibleMovies" :key="movie.id" :style="{ transform: 'translateX(' + (index * slideWidth) + 'px)' }">
+          <img :src="movie.image" alt="Movie Poster" class="movie-image">
+          <h2>{{ movie.title }}</h2>
+          <p>{{ movie.description }}</p>
+          <p>Fecha de lanzamiento: {{ movie.date }}</p>
+          <button class="buy-ticket-btn" @click="idcompra(movie.id)">Comprar Tickets</button>
+        </li>
+      </ul>
+      <button class="carousel-btn next" @click="nextSlide">&#10095;</button>
+    </div>
   </div>
 </template>
 
@@ -18,7 +24,16 @@
 export default {
   data() {
     return {
-      movies: []
+      movies: [],
+      currentIndex: 0,
+      slideWidth: 300, 
+      numVisibleSlides: 3
+    }
+  },
+  computed: {
+    visibleMovies() {
+      const endIndex = this.currentIndex + this.numVisibleSlides;
+      return this.movies.slice(this.currentIndex, endIndex);
     }
   },
   async mounted() {
@@ -31,7 +46,17 @@ export default {
     }
   },
   methods: {
-
+    prevSlide() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+    },
+    nextSlide() {
+      const maxIndex = this.movies.length - this.numVisibleSlides;
+      if (this.currentIndex < maxIndex) {
+        this.currentIndex++;
+      }
+    },
     idcompra(movieid) {
       console.log('IDCOMPRA', movieid)
       navigateTo(`/${movieid}`)
@@ -42,96 +67,59 @@ export default {
 <style scoped>
 /* Estilos para el componente */
 div {
-
   font-family: Arial, Helvetica, sans-serif;
-  color: #ddd;
-  background: radial-gradient(#252525, #181818, #212121);
+  color: #333;
+  background: #f4f4f4;
   padding: 20px;
   display: flex;
   flex-direction: column;
-
-
+}
+<style>
+.carousel-container {
+  position: relative;
+  overflow: hidden;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #444;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
+.carousel-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.5s ease;
 }
 
-li {
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 350px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(247, 3, 3, 0.1);
-  transition: transform 0.2s ease-in-out;
-  border: 1px solid rgb(245, 141, 5);
-  box-shadow: 0 0 2px #e97101;
-  background: linear-gradient(45deg, #111, #252525, #111, #252525);
-
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
 }
 
-li:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+.carousel-btn.prev {
+  left: 0;
 }
 
-h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: #555;
-}
-
-p {
-  color: #777;
-  margin-bottom: 10px;
+.carousel-btn.next {
+  right: 0;
 }
 
 .movie-image {
-  width: 275px;
-  height: 350px;
-  margin-bottom: 10px;
-  left: 11%;
-position: relative;
-  box-shadow: 0 0 11px 5px #e97101;  
-  background-size: contain;
-  background-color: tomato;
-  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .buy-ticket-btn {
-  background-color: #ff6347;
-  /* Color de fondo */
+  background-color: #007bff;
   color: white;
-  /* Color del texto */
-  padding: 15px 25px;
-  /* Espaciado interno */
-  font-size: 1em;
-  /* Tamaño del texto */
   border: none;
-  /* Sin borde */
-  border-radius: 5px;
-  /* Bordes redondeados */
+  padding: 5px 10px;
+  border-radius: 3px;
   cursor: pointer;
-  /* Cambiar cursor al pasar el ratón */
-  transition: background-color 0.3s ease-in-out;
-  /* Transición de color al pasar el ratón */
-}
-
-/* Cambia el color al pasar el ratón */
-.buy-ticket-btn:hover {
-  background-color: #ff4500;
-  /* Nuevo color de fondo al pasar el ratón */
 }
 </style>

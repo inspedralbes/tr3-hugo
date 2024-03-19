@@ -2,7 +2,6 @@
   <div class="movie-details" v-if="movie">
     <div class="movie-info">
       <h2>{{ movie.title }}</h2>
-      <p>{{ movie.description }}</p>
       <img :src="movie.image" alt="Movie Poster" class="movie-image">
       <p>Fecha de lanzamiento: {{ movie.date }}</p>
       <button class="reserve-button" @click="reservar">Reservar</button>
