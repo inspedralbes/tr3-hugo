@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     user: null,
     reservations: [],
+    totalPrice: 0,
   }),
   actions: {
     setUser(user) {
@@ -16,6 +17,9 @@ export const useUserStore = defineStore('user', {
     },
     clearReservations() {
       this.reservations = [];
+    },
+    updateTotalPrice(price) {
+      this.totalPrice = price;
     },
   },
 });

@@ -14,6 +14,7 @@ class CreateSeatsTable extends Migration
             $table->boolean('occupied')->default(false);
             $table->integer('row');
             $table->integer('column');
+            $table->boolean('vip')->default(false);
             $table->timestamps();
             
         });
