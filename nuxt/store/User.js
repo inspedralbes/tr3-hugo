@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', {
     user: null,
     reservations: [],
     totalPrice: 0,
+    tickets: [],
   }),
   actions: {
     setUser(user) {
@@ -18,8 +19,17 @@ export const useUserStore = defineStore('user', {
     clearReservations() {
       this.reservations = [];
     },
+    addTicket(ticket) {
+      this.tickets.push(ticket);
+    },
     updateTotalPrice(price) {
       this.totalPrice = price;
     },
-  },
+    saveReservations() {
+        return this.reservations;
+        return this.tickets;
+     
+    },
+   
+},
 });

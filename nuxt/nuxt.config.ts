@@ -3,6 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   //add css normalize
   css: ['normalize.css'],
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxt/image'],
   telemetry: false,
 })

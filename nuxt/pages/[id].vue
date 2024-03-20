@@ -4,7 +4,7 @@
       <h2>{{ movie.title }}</h2>
       <img :src="movie.image" alt="Movie Poster" class="movie-image">
       <p>Fecha de lanzamiento: {{ movie.date }}</p>
-      <button class="reserve-button" @click="reservar">Reservar</button>
+      <p>{{ movie.description }}</p>
     </div>
 
     <div class="seat-selection" v-if="seats.length">
@@ -116,13 +116,16 @@ export default {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            userStore.addReservation({ seatId, movieId: this.id});
+            // guardar objeto de seat en el store
+            userStore.addReservation(seat);
             userStore.updateTotalPrice(totalPrice);
-
+            //add ticket with movie title and seat id
+            userStore.addTicket({ movie: this.movie.title, seat: seatId });
           }
         }
         this.fetchDataSeats();
         this.selectedSeats = []; // Limpiar los asientos seleccionados después de la reserva exitosa
+        navigateTo('/reservas');
       } catch (error) {
         console.error('Error reserving seats:', error);
       }
@@ -224,7 +227,10 @@ export default {
 
 .seats-container div.occupied {
   background-color: #ccc;
-  /* Color for occupied seats */
+  /* disabe */
+  cursor: not-allowed;
+
+    
 }
 
 .seats-container div.selected {

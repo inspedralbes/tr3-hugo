@@ -132,9 +132,10 @@ div {
 }
 
 .movie-image {
-  width: 400px;
-  height: auto;
   border-radius: 5px;
+    height: 466px;
+    width: 362px;
+
 }
 
 .movie-details {
@@ -151,10 +152,11 @@ div {
 }
 .movie-card {
   display: flex;
-  margin: 10px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 372px;
+    align-items: center;
 }
 </style>
