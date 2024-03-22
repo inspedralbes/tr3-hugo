@@ -24,7 +24,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                const response = await fetch(`http://localhost:8000/api/register`, {
+                const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

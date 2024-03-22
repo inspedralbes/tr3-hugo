@@ -60,7 +60,7 @@ export default {
   },
     async fetchDataMovie() {
       try {
-        const response = await fetch(`http://localhost:8000/api/movies/${this.id}`);
+        const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -71,7 +71,7 @@ export default {
     },
     async fetchDataSeats() {
       try {
-        const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats`);
+        const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.id}/seats`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -105,7 +105,7 @@ export default {
           const seat = this.seats.find(seat => seat.id === seatId);
           if (seat) {
             totalPrice += seat.vip ? this.vipPrice : this.price;
-            const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${seatId}/reserve`, {
+            const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.id}/seats/${seatId}/reserve`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

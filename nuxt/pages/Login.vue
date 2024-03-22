@@ -27,7 +27,7 @@
         async submitForm() {
           const userStore = useUserStore();
             try {
-                const response = await fetch(`http://localhost:8000/api/login`, {
+                const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
