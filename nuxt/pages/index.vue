@@ -37,7 +37,7 @@
         <div class="movie-list">
           <!-- Aquí se generaría dinámicamente la lista de películas -->
           <div class="movie">
-            <img src="../public/img/movie1.jpg" alt="Película 1">
+            <img src="../public/img/portada.jpg" alt="Película 1">
             <h3 class="movie-title">Título de la Película</h3>
             <p class="movie-description">Breve descripción de la película.</p>
             <a href="#" class="btn btn-buy">Comprar Entradas</a>
