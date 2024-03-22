@@ -5,7 +5,7 @@
 
     <header class="header">
       <div class="logo">
-        <img src="../public/img/" alt="Logo">
+        <img src="../public/img/8K8T7RDW.jpg" alt="Logo">
       </div>
       <nav class="navigation">
         <ul>
