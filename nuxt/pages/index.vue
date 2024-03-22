@@ -1,9 +1,11 @@
 <template>
   <div class="ticket-sales">
     <!-- Cabecera -->
+    <!-- add favicon -->
+
     <header class="header">
       <div class="logo">
-        <img src="../public/img/logo.png" alt="Logo">
+        <img src="../public/img/" alt="Logo">
       </div>
       <nav class="navigation">
         <ul>
@@ -15,18 +17,17 @@
         </ul>
       </nav>
       <div class="user-actions">
-        <a href="#" class="btn btn-login">Iniciar sesión</a>
-        <a href="#" class="btn btn-register">Registrarse</a>
+        <a href="/Login" class="btn btn-login">Iniciar sesión</a>
+        <a href="/Register" class="btn btn-register">Registrarse</a>
       </div>
     </header>
-
-    <!-- Hero -->
+   <!-- Hero -->
     <main class="main">
       <section class="hero">
         <div class="hero-content">
           <h1 class="hero-title">¡Compra tus entradas ahora!</h1>
           <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.</p>
-          <a href="#" class="btn btn-primary">Explora películas</a>
+          <a href="/movies" class="btn btn-primary">Explora películas</a>
         </div>
       </section>
 
@@ -72,17 +73,19 @@ export default {
   max-width: 600px; 
 }
 .hero {
-  background-image: url('../public/img/d6564e91-20f8-4a97-8eba-06f1d03edadd.jpg'); /* Ruta de tu nueva imagen de fondo */
+  /* add this background-image: https://shotdeck.com/assets/images/stills/thumb/small_BZL3LJQN.jpg; */
+  
+  background-image: url('/img/8K8T7RDW.jpg'); /* Ruta de tu nueva imagen de fondo */
   background-size: cover; /* Ajusta el tamaño del fondo para cubrir toda la sección */
   background-position: center; /* Ajusta la posición del fondo */
   background-repeat: no-repeat; /* Evita que el fondo se repita */
-    color: #333;
+    color: #e0e0e0;
     text-align: center;
     padding: 100px 0;
     align-items: center;
     justify-content: center;
     display: flex;
-}
+  }
 
 .header {
   background-color: #1b1b1b;
@@ -137,7 +140,7 @@ export default {
 
 .hero {
   background-color: #f8f9fa;
-  color: #333;
+  color: #d4cece;
   text-align: center;
   padding: 100px 0;
 }
@@ -146,7 +149,7 @@ export default {
   font-size: 2.5em;
   margin-bottom: 20px;
   /* añade estilos originales */
-  color: #333; 
+  color: #e4e2e2; 
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
@@ -158,7 +161,7 @@ export default {
   font-size: 1em;
   margin-bottom: 30px;
   /* añade estilos originales */
-  color: #333;
+  color: #000000;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
