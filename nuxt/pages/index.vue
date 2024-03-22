@@ -1,152 +1,235 @@
 <template>
-  <div>
-    
-  <div class="landing">
-    <section class="hero"><div class="login-register-buttons">
-      <nuxt-link to="/Login" class="login-btn">
-        <img src="../public/img/loginticket-removebg-preview.png" alt="Login">
-      </nuxt-link>
-      <nuxt-link to="/Register" class="register-btn">
-        <img src="../public/img/registerticket-removebg-preview.png" alt="Register">
-      </nuxt-link>
-    </div>
- 
-      <h1 class="hero-title">¡Bienvenido a nuestro Cine!</h1>
-      <p class="hero-subtitle">Descubre las últimas películas y compra tus entradas ahora</p>
-      <nuxt-link to="/movies" class="cta btn-primary">Comprar entradas</nuxt-link>
-    </section> </div>
-    <section class="features">
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-film"></i>
-        </div>
-        <h2>Amplia Selección de Películas</h2>
-        <p>Explora nuestra amplia gama de películas para todos los gustos. Desde emocionantes aventuras hasta conmovedores dramas.</p>
+  <div class="ticket-sales">
+    <!-- Cabecera -->
+    <header class="header">
+      <div class="logo">
+        <img src="../public/img/logo.png" alt="Logo">
       </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-ticket-alt"></i>
-        </div>
-        <h2>Compra Fácil de Entradas</h2>
-        <p>Adquiere tus entradas de forma rápida y segura desde nuestra plataforma. ¡Sin colas ni complicaciones!</p>
+      <nav class="navigation">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Películas</a></li>
+          <li><a href="#">Próximos Estrenos</a></li>
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="user-actions">
+        <a href="#" class="btn btn-login">Iniciar sesión</a>
+        <a href="#" class="btn btn-register">Registrarse</a>
       </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-headset"></i>
+    </header>
+
+    <!-- Hero -->
+    <main class="main">
+      <section class="hero">
+        <div class="hero-content">
+          <h1 class="hero-title">¡Compra tus entradas ahora!</h1>
+          <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.</p>
+          <a href="#" class="btn btn-primary">Explora películas</a>
         </div>
-        <h2>Excelente Servicio al Cliente</h2>
-        <p>Estamos aquí para ayudarte con cualquier pregunta o problema que puedas tener. Nuestro equipo está comprometido con tu satisfacción.</p>
-      </div>
-    </section>
+      </section>
+
+      <!-- Películas en Cartelera -->
+      <section class="movies">
+        <h2 class="section-title">Películas en Cartelera</h2>
+        <div class="movie-list">
+          <!-- Aquí se generaría dinámicamente la lista de películas -->
+          <div class="movie">
+            <img src="../public/img/movie1.jpg" alt="Película 1">
+            <h3 class="movie-title">Título de la Película</h3>
+            <p class="movie-description">Breve descripción de la película.</p>
+            <a href="#" class="btn btn-buy">Comprar Entradas</a>
+          </div>
+          <!-- Repetir para cada película -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="footer">
+      <p>&copy; 2024 Cine Online. Todos los derechos reservados.</p>
+    </footer>
   </div>
 </template>
 
 <script>
 export default {
-  // Aquí puedes añadir cualquier lógica necesaria para tu landing page
+  // Aquí puedes añadir cualquier lógica necesaria para tu página de venta de entradas de cine
 }
 </script>
 
 <style scoped>
-.landing {
-  text-align: center;
+/* Estilos generales */
+.ticket-sales {
+  font-family: 'Arial', sans-serif;
 }
-
-.hero {
-  padding: 100px 0;
-  background-image: url('https://t4.ftcdn.net/jpg/04/41/71/47/360_F_441714717_25NQrjVZaao3XejzZzVWbj9eq8zuFZyF.jpg'); /* Ruta de tu imagen de fondo */
-  background-size: cover;
-  background-position: center;
-  color: #fff; /* Ajusta el color del texto según tu imagen de fondo */
-  font-family: 'Arial', sans-serif; /* Fuentes alternativas */
-}
-
-.hero-title {
-  font-size: 3em;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-}
-
-.hero-subtitle {
-  font-size: 1.5em;
-  color: #555;
-  margin-bottom: 30px;
-}
-
-.cta {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 15px 30px;
-  font-size: 1.2em;
-  background-color: #ff6347; /* Rojo */
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.cta:hover {
-  background-color: #ff4500; /* Rojo oscuro */
-}
-
-.features {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 50px 0;
-}
-
-.feature {
-  width: 30%;
-  margin-bottom: 30px;
-  padding: 20px;
+.hero-content{
+  padding: 12px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  background-color: #f8f9fa; /* Gris claro */
+  width: 65%;
+  position: relative;
+  max-width: 600px; 
+}
+.hero {
+  background-image: url('../public/img/d6564e91-20f8-4a97-8eba-06f1d03edadd.jpg'); /* Ruta de tu nueva imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño del fondo para cubrir toda la sección */
+  background-position: center; /* Ajusta la posición del fondo */
+  background-repeat: no-repeat; /* Evita que el fondo se repita */
+    color: #333;
+    text-align: center;
+    padding: 100px 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
-.feature:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-}
-
-.feature-icon {
-  font-size: 3em;
-  margin-bottom: 20px;
-  color: #ff6347; /* Rojo */
-}
-
-.feature h2 {
-  font-size: 1.8em;
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.feature p {
-  font-size: 1.1em;
-  color: #555;
-}
-.login-register-buttons {
+.header {
+  background-color: #1b1b1b;
+  color: #fff;
+  padding: 20px 0;
   display: flex;
-    justify-content: flex-end;
-    position: relative;
-    bottom: 100px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.login-btn, .register-btn {
-  margin: 0 10px;
-}
-
-.login-btn img, .register-btn img {
-  width: 100px; /* Ajusta el tamaño según tus necesidades */
+.logo img {
+  width: 150px;
   height: auto;
 }
 
-/* Estilos opcionales para los botones si deseas agregar efectos de hover */
-.login-btn:hover, .register-btn:hover {
-  transform: scale(1.1);
-  transition: transform 0.3s ease;
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.navigation ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.user-actions .btn {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.btn-login {
+  background-color: #007bff;
+}
+
+.btn-register {
+  background-color: #28a745;
+}
+
+.main {
+  padding: 20px;
+}
+
+.hero {
+  background-color: #f8f9fa;
+  color: #333;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.hero-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  /* añade estilos originales */
+  color: #333; 
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  
+}
+
+.hero-subtitle {
+  font-size: 1em;
+  margin-bottom: 30px;
+  /* añade estilos originales */
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.section-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.movies {
+  margin-top: 50px;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movie {
+  width: 30%;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.movie img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.movie-title {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+.movie-description {
+  margin-bottom: 20px;
+}
+
+.btn-buy {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-buy:hover {
+  background-color: #218838;
+}
+
+.footer {
+  background-color: #1b1b1b;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
 }
 </style>
