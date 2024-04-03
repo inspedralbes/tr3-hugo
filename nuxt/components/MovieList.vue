@@ -12,12 +12,17 @@
           <div class="movie-card">
             <img :src="movie.image" alt="Cartel de la película {{ movie.title }}" class="movie-image">
             <div class="movie-details">
+
               <h2>{{ movie.title }}</h2>
               <p class="description">{{ movie.description }}</p>
               <p><strong>Fecha de lanzamiento:</strong> {{ movie.date }}</p>
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
+            <div class="trailer">
+              <i class="gg-play-button-o"></i>
+            </div>
           </div>
+
         </li>
       </ul>
       <button class="carousel-btn next" @click="nextSlide"
@@ -67,7 +72,7 @@ export default {
       console.log('ID de la película:', movieId);
       // Aquí puedes agregar la lógica para comprar tickets
       // Por ejemplo, redirigir a la página de compra de tickets
-       navigateTo(`/${movieId}`);
+      navigateTo(`/${movieId}`);
     }
   }
 }
@@ -75,6 +80,8 @@ export default {
 
 <style scoped>
 /* Estilos para el componente */
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/play-button-o.css');
+
 .body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
@@ -82,6 +89,54 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #accdec;
+}
+.trailer {
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin-block: 0.75em;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  font-family: "Arimo", sans-serif;
+}
+.movie-card:hover .trailer {
+  opacity: 1;    
+  transition-delay:0.3s;
+
+}
+.movie-card:hover img {
+  filter: brightness(60%) blur(3px);
+
+}
+.movie-image {
+  border-radius: 5px;
+  height: 466px;
+  width: 362px;
+  transition: filter 0.4s ease-in-out;
+}
+
+.movie-card:hover .main {
+  transform: translateY(-30%);
+}
+
+.movie-card:hover .content .gg-play-button-o {
+  opacity: 1; /* Появление при наведении */
+}
+
+
+.gg-play-button-o:hover {
+  color: orange; 
+}
+.gg-play-button-o{
+  box-sizing: border-box;
+    position: absolute;
+    display: block;
+    transform: scale(var(--ggs, 3.5));
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 20px;
+    top: 228px;
+    color:antiquewhite ;
 }
 div {
   font-family: Arial, Helvetica, sans-serif;
@@ -100,9 +155,9 @@ div {
 .carousel-list {
   display: flex;
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+
   transition: transform 0.5s ease;
+
 }
 
 .carousel-btn {
@@ -133,8 +188,8 @@ div {
 
 .movie-image {
   border-radius: 5px;
-    height: 466px;
-    width: 362px;
+  height: 466px;
+  width: 362px;
 
 }
 
@@ -150,13 +205,14 @@ div {
   border-radius: 3px;
   cursor: pointer;
 }
+
 .movie-card {
   display: flex;
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 372px;
-    align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 372px;
+  align-items: center;
 }
 </style>

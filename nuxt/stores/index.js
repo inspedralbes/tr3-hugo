@@ -1,8 +1,8 @@
-// store/User.js
+// stores/index.js
 
 import { defineStore } from 'pinia';
 
-export const useUserStore = defineStore('user', {
+export const useStore = defineStore('main', {
   state: () => ({
     user: null,
     reservations: [],

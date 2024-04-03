@@ -11,8 +11,7 @@
   </template>
   
   <script>   
- import { useUserStore } from '../store/User';
-
+import { useStore } from '../stores/index.js';
   export default {
     data() {
       return {
@@ -23,9 +22,9 @@
        
       };
     },
-    methods: {
+    methods: {      //quitar await
+
         async submitForm() {
-          const userStore = useUserStore();
             try {
                 const response = await fetch(`http://localhost:8000/api/login`, {
                     method: 'POST',
@@ -40,6 +39,7 @@
                     // Manejar la respuesta del inicio de sesión
                     const data = await response.json();
                     //router push a la pagina de inicio
+                    const userStore = useStore();
                     userStore.setUser(data);
                     this.$router.push('/');
                     console.log(data);

@@ -3,24 +3,8 @@
     <!-- Cabecera -->
     <!-- add favicon -->
 
-    <header class="header">
-      <div class="logo">
-        <img src="../public/img/" alt="Logo">
-      </div>
-      <nav class="navigation">
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Películas</a></li>
-          <li><a href="#">Próximos Estrenos</a></li>
-          <li><a href="#">Ofertas</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </nav>
-      <div class="user-actions">
-        <a href="/Login" class="btn btn-login">Iniciar sesión</a>
-        <a href="/Register" class="btn btn-register">Registrarse</a>
-      </div>
-    </header>
+   <!-- add Header component -->
+   <Navheader />
    <!-- Hero -->
     <main class="main">
       <section class="hero">
@@ -37,7 +21,7 @@
         <div class="movie-list">
           <!-- Aquí se generaría dinámicamente la lista de películas -->
           <div class="movie">
-            <img src="../public/img/movie1.jpg" alt="Película 1">
+            <img src="../public/img/BZL3LJQN.jpg" alt="Película 1">
             <h3 class="movie-title">Título de la Película</h3>
             <p class="movie-description">Breve descripción de la película.</p>
             <a href="#" class="btn btn-buy">Comprar Entradas</a>
@@ -45,18 +29,26 @@
           <!-- Repetir para cada película -->
         </div>
       </section>
+      <router-view />
+
     </main>
 
-    <!-- Pie de Página -->
-    <footer class="footer">
-      <p>&copy; 2024 Cine Online. Todos los derechos reservados.</p>
-    </footer>
+    <!-- Footer -->
+    <DownFooter />
   </div>
 </template>
 
 <script>
+import Navheader from '~/components/Navheader.vue';
+import DownFooter from '~/components/DownFooter.vue';
+
+
 export default {
-  // Aquí puedes añadir cualquier lógica necesaria para tu página de venta de entradas de cine
+  components: {
+    DownFooter,
+    Navheader
+    
+  }
 }
 </script>
 
@@ -75,7 +67,7 @@ export default {
 .hero {
   /* add this background-image: https://shotdeck.com/assets/images/stills/thumb/small_BZL3LJQN.jpg; */
   
-  background-image: url('/img/8K8T7RDW.jpg'); /* Ruta de tu nueva imagen de fondo */
+  background-image: url('../public/img/8K8T7RDW.jpg'); /* Ruta de tu nueva imagen de fondo */
   background-size: cover; /* Ajusta el tamaño del fondo para cubrir toda la sección */
   background-position: center; /* Ajusta la posición del fondo */
   background-repeat: no-repeat; /* Evita que el fondo se repita */
@@ -87,52 +79,7 @@ export default {
     display: flex;
   }
 
-.header {
-  background-color: #1b1b1b;
-  color: #fff;
-  padding: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.logo img {
-  width: 150px;
-  height: auto;
-}
-
-.navigation ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navigation ul li {
-  display: inline;
-  margin-right: 20px;
-}
-
-.navigation ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-
-.user-actions .btn {
-  text-decoration: none;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-left: 20px;
-}
-
-.btn-login {
-  background-color: #007bff;
-}
-
-.btn-register {
-  background-color: #28a745;
-}
 
 .main {
   padding: 20px;
@@ -140,9 +87,13 @@ export default {
 
 .hero {
   background-color: #f8f9fa;
-  color: #d4cece;
-  text-align: center;
-  padding: 100px 0;
+    color: #d4cece;
+    text-align: center;
+    padding: 100px 0;
+    margin-left: -20px;
+    top: -20px;
+    position: relative;
+    margin-right: -20px;
 }
 
 .hero-title {
@@ -182,8 +133,7 @@ export default {
 }
 
 .section-title {
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 1.6em;
 }
 
 .movies {
@@ -229,10 +179,5 @@ export default {
   background-color: #218838;
 }
 
-.footer {
-  background-color: #1b1b1b;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
-}
+
 </style>

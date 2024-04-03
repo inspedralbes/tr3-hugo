@@ -34,8 +34,7 @@
   </div>
 </template>
 <script>
-//import useUserStore from '../store/User';
-import { useUserStore } from '../store/User';
+import { useStore } from '../stores/index'; // Asegúrate de que la ruta sea correcta
 export default {
   data() {
     return {
@@ -44,20 +43,21 @@ export default {
       id: null,
       selectedSeats: [],
       price: 6,
-      vipPrice: 8
+      vipPrice: 8,
+      isAuth: false
     };
   },
   methods: {
     calcularPrecioTotal() {
-    let totalPrice = 0;
-    for (const seatId of this.selectedSeats) {
-      const seat = this.seats.find(seat => seat.id === seatId);
-      if (seat) {
-        totalPrice += seat.vip ? this.vipPrice : this.price;
+      let totalPrice = 0;
+      for (const seatId of this.selectedSeats) {
+        const seat = this.seats.find(seat => seat.id === seatId);
+        if (seat) {
+          totalPrice += seat.vip ? this.vipPrice : this.price;
+        }
       }
-    }
-    return totalPrice;
-  },
+      return totalPrice;
+    },
     async fetchDataMovie() {
       try {
         const response = await fetch(`http://localhost:8000/api/movies/${this.id}`);
@@ -97,8 +97,14 @@ export default {
       }
     },
     async reservarAsientos() {
+      const userStore = useStore();
+      
+      // Verificar si el usuario está autenticado
+      if (!userStore.user) {
+        alert('Debes iniciar sesión para reservar asientos.');
+        return;
+      }
       try {
-        const userStore = useUserStore();
         let totalPrice = 0;
 
         for (const seatId of this.selectedSeats) {
@@ -111,7 +117,6 @@ export default {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({ id: seatId, occupied: true })
-
             });
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -130,6 +135,7 @@ export default {
         console.error('Error reserving seats:', error);
       }
     },
+
 
   },
   async mounted() {
@@ -156,20 +162,20 @@ export default {
 
 .movie-info {
   margin-right: 20px;
-    height: -moz-fit-content;
-    height: 82%;
-    background-color: #d1d1d140;
-    display: flex;
-    place-items: center;
-    border-radius: 5px;
-    flex-direction: column;
-    grid-area: carta;
-    width: 610px;
+  height: -moz-fit-content;
+  height: 82%;
+  background-color: #d1d1d140;
+  display: flex;
+  place-items: center;
+  border-radius: 5px;
+  flex-direction: column;
+  grid-area: carta;
+  width: 610px;
 }
 
 .movie-image {
   width: 394px;
-    height: 553px;
+  height: 553px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -230,7 +236,7 @@ export default {
   /* disabe */
   cursor: not-allowed;
 
-    
+
 }
 
 .seats-container div.selected {
