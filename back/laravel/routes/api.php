@@ -24,7 +24,10 @@ Route::post('/movies/{movie_id}/seats/{seat_id}/reserve', [SeatController::class
 Route::post('/movies/{movie_id}/add_seats', [SeatController::class, 'addSeats']);
 Route::delete('/movies/{movie_id}/remove_seats', [SeatController::class, 'removeSeats']);
 Route::get('/movies', [MovieController::class, 'index']);
+Route::post('/movies', [MovieController::class, 'store']);
 Route::get('/movies/{id}', [MovieController::class, 'show']);
+Route::put('/movies/{id}', [MovieController::class, 'update']);
+Route::delete('/movies/{id}', [MovieController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

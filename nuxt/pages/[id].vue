@@ -102,6 +102,7 @@ export default {
       // Verificar si el usuario está autenticado
       if (!userStore.user) {
         alert('Debes iniciar sesión para reservar asientos.');
+        this.router.push('/login');
         return;
       }
       try {
@@ -125,7 +126,7 @@ export default {
             userStore.addReservation(seat);
             userStore.updateTotalPrice(totalPrice);
             //add ticket with movie title and seat id
-            userStore.addTicket({ movie: this.movie.title, seat: seatId });
+            userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row});
           }
         }
         this.fetchDataSeats();

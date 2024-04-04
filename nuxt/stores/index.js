@@ -1,10 +1,9 @@
 // stores/index.js
-
 import { defineStore } from 'pinia';
 
 export const useStore = defineStore('main', {
   state: () => ({
-    user: null,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     reservations: [],
     totalPrice: 0,
     tickets: [],
@@ -12,6 +11,7 @@ export const useStore = defineStore('main', {
   actions: {
     setUser(user) {
       this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
     },
     addReservation(reservation) {
       this.reservations.push(reservation);
@@ -26,10 +26,10 @@ export const useStore = defineStore('main', {
       this.totalPrice = price;
     },
     saveReservations() {
-        return this.reservations;
-        return this.tickets;
-     
-    },
-   
-},
+      return this.reservations;
+      return this.tickets;
+
+    }
+
+  },
 });
