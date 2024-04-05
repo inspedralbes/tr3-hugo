@@ -26,8 +26,8 @@ export const useStore = defineStore('main', {
       this.totalPrice = price;
     },
     saveReservations() {
-      return { reservations: this.reservations, tickets: this.tickets };
-
+      return this.reservations;
+      return this.tickets;
 
     }
 

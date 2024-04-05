@@ -115,4 +115,4 @@ methods: {
   background-color: #ff88ff;
   /* Transición a un tono más claro de rosa neon */
 }
-</style>
+</style>../store/index.js

@@ -19,8 +19,8 @@
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
             <div class="trailer">
-              <i class="gg-play-button-o"></i>
-            </div>
+              <a :href="movie.trailer" target="_blank"><i class="gg-play-button-o"> </i></a>      
+          </div>
           </div>
 
         </li>
@@ -208,11 +208,12 @@ div {
 
 .movie-card {
   display: flex;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 372px;
-  align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 425px;
+    align-items: center;
+    height: 98%;
 }
 </style>

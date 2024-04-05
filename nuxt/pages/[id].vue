@@ -102,7 +102,8 @@ export default {
       // Verificar si el usuario está autenticado
       if (!userStore.user) {
         alert('Debes iniciar sesión para reservar asientos.');
-        this.router.push('/login');
+        //redirigir a login
+        navigateTo('/login');
         return;
       }
       try {

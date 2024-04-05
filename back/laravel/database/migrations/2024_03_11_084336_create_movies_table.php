@@ -14,6 +14,8 @@ class CreateMoviesTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->string('date');
+            //trailer
+            $table->string('trailer');
             $table->integer('total_seats')->default(100); // Agregar columna para el total de asientos
             $table->timestamps();
         });

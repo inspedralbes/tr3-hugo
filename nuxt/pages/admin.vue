@@ -25,6 +25,10 @@
               <input type="date" id="date" v-model="newMovie.date" required>
             </div>
             <div>
+              <label for="trailer">Trailer:</label>
+              <input type="text" id="trailer" v-model="newMovie.trailer" required>
+            </div>
+            <div>
               <label for="totalSeats">Total de asientos:</label>
               <input type="number" id="totalSeats" v-model="newMovie.total_seats" required>
             </div>
@@ -43,6 +47,7 @@
             <th>Descripción</th>
             <th>Imagen</th>
             <th>Fecha</th>
+            <th>Trailer</th>
             <th>Total de asientos</th>
             <th>Acciones</th>
           </tr>
@@ -76,6 +81,7 @@ export default {
         description: '',
         image: '',
         date: '',
+        trailer: '',
         total_seats: 0
       }
     };
@@ -114,6 +120,7 @@ export default {
         description: '',
         image: '',
         date: '',
+        trailer: '',
         total_seats: 0
       };
       this.showModal = false;
