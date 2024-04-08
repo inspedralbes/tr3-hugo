@@ -14,10 +14,7 @@
           <li><a href="#">Contacto</a></li>
         </ul>
       </nav>
-      <div class="user-actions">
-        <a href="/Login" class="btn btn-login">Iniciar sesión</a>
-        <a href="/Register" class="btn btn-register">Registrarse</a>
-      </div>
+      
     </header>
     </div>
 </template>

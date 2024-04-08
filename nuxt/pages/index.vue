@@ -1,11 +1,10 @@
 <template>
-  <div class="ticket-sales">
     <!-- Cabecera -->
     <!-- add favicon -->
 
    <!-- add Header component -->
-   <Navheader />
-   <!-- Hero -->
+   <!-- Hero --> 
+<Header />
     <main class="main">
       <section class="hero">
         <div class="hero-content">
@@ -29,34 +28,21 @@
           <!-- Repetir para cada película -->
         </div>
       </section>
-      <router-view />
 
     </main>
 
     <!-- Footer -->
-    <DownFooter />
-  </div>
 </template>
 
 <script>
-import Navheader from '~/components/Navheader.vue';
-import DownFooter from '~/components/DownFooter.vue';
 
 
 export default {
-  components: {
-    DownFooter,
-    Navheader
-    
-  }
+ 
 }
 </script>
 
 <style scoped>
-/* Estilos generales */
-.ticket-sales {
-  font-family: 'Arial', sans-serif;
-}
 .hero-content{
   padding: 12px;
   border-radius: 10px;

@@ -8,7 +8,7 @@
           <span class="close" @click="showModal = false">&times;</span>
           <h2>Agregar película</h2>
           <form @submit.prevent="addMovie">
-              <div>
+            <div>
               <label for="title">Título:</label>
               <input type="text" id="title" v-model="newMovie.title" required>
             </div>
@@ -25,14 +25,24 @@
               <input type="date" id="date" v-model="newMovie.date" required>
             </div>
             <div>
+              <label for="trailer">Trailer:</label>
+              <input type="text" id="trailer" v-model="newMovie.trailer" required>
+            </div>
+            <div>
               <label for="totalSeats">Total de asientos:</label>
               <input type="number" id="totalSeats" v-model="newMovie.total_seats" required>
+            </div>
+            <div>
+              <label for="startTime">Hora de inicio:</label>
+              <input type="datetime-local" id="startTime" v-model="newSession.start_time" required>
             </div>
             <button type="submit">Agregar</button>
           </form>
         </div>
       </div>
+      <div>
 
+      </div>
     </div>
     <div v-if="movies.length === 0">No hay películas disponibles.</div>
     <div v-else>
@@ -43,6 +53,7 @@
             <th>Descripción</th>
             <th>Imagen</th>
             <th>Fecha</th>
+            <th>Trailer</th>
             <th>Total de asientos</th>
             <th>Acciones</th>
           </tr>
@@ -63,6 +74,7 @@
       </table>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -75,8 +87,12 @@ export default {
         title: '',
         description: '',
         image: '',
+        trailer: '',
         date: '',
-        total_seats: 0
+        total_seats: 0,
+      },
+      newSession: {
+        start_time: ''
       }
     };
   },
@@ -99,32 +115,84 @@ export default {
       }
     },
     async addMovie() {
-    try {
-      const response = await fetch('http://localhost:8000/api/movies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.newMovie),
-      });
-      const data = await response.json();
-      this.movies.push(data);
-      this.newMovie = {
-        title: '',
-        description: '',
-        image: '',
-        date: '',
-        total_seats: 0
-      };
-      this.showModal = false;
-    } catch (error) {
-      console.error('Error adding movie:', error);
-    }
-  },
-    editMovie(id) {
-      console.log('Editar película con ID:', id);
-      // Implementa la lógica para editar la película
+      try {
+        // Agregar la película
+        const movieResponse = await fetch('http://localhost:8000/api/movies', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.newMovie),
+        });
+        const movieData = await movieResponse.json();
+        this.movies.push(movieData);
+
+        // Agregar la sesión
+        const sessionResponse = await fetch(`http://localhost:8000/api/movies/${movieData.id}/sessions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.newSession),
+        });
+        const sessionData = await sessionResponse.json();
+        console.log('Película y sesión agregadas:', movieData, sessionData);
+
+        // Reiniciar los datos del formulario y cerrar el modal
+        this.newMovie = {
+          title: '',
+          description: '',
+          image: '',
+          trailer: '',
+          date: '',
+          total_seats: 0,
+        };
+        this.newSession = {
+          start_time: ''
+        };
+        this.showModal = false;
+      } catch (error) {
+        console.error('Error adding movie and session:', error);
+      }
     },
+    async editMovie(movieId) {
+  try {
+    // Obtener los detalles de la película
+    const response = await fetch(`http://localhost:8000/api/movies/${movieId}`);
+    const movieData = await response.json();
+
+    // Asignar los detalles de la película a newMovie
+    this.newMovie = movieData;
+
+    // Abrir el modal
+    this.showModal = true;
+  } catch (error) {
+    console.error('Error fetching movie:', error);
+  }
+},
+
+async updateMovie() {
+  try {
+    // Actualizar la película
+    const response = await fetch(`http://localhost:8000/api/movies/${this.newMovie.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.newMovie),
+    });
+    const updatedMovie = await response.json();
+
+    // Actualizar la película en la lista de películas
+    const index = this.movies.findIndex(movie => movie.id === updatedMovie.id);
+    this.movies.splice(index, 1, updatedMovie);
+
+    // Cerrar el modal
+    this.showModal = false;
+  } catch (error) {
+    console.error('Error updating movie:', error);
+  }
+},
     async deleteMovie(id) {
       try {
         await fetch(`http://localhost:8000/api/movies/${id}`, {
@@ -134,7 +202,33 @@ export default {
       } catch (error) {
         console.error('Error deleting movie:', error);
       }
-    }
+    },
+    openSessionModal() {
+      this.showSessionModal = true;
+    },
+
+    async addSession() {
+      try {
+        const response = await fetch(`http://localhost:8000/api/movies/${this.movieId}/sessions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.newSession),
+        });
+        const data = await response.json();
+        // Puedes hacer algo con la respuesta si lo necesitas
+        console.log('Sesión agregada:', data);
+        // Opcional: puedes cargar nuevamente las sesiones de la película después de agregar una nueva sesión
+        this.loadSessions(this.movieId);
+        this.newSession = {
+          start_time: ''
+        };
+        this.showSessionModal = false;
+      } catch (error) {
+        console.error('Error adding session:', error);
+      }
+    },
   }
 };
 </script>
@@ -154,7 +248,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -215,7 +309,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -224,10 +319,11 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
-img{
+
+img {
   border-style: none;
-    height: 134px;
-    width: 104px;
+  height: 134px;
+  width: 104px;
 
 }
 </style>

@@ -16,11 +16,21 @@
               <h2>{{ movie.title }}</h2>
               <p class="description">{{ movie.description }}</p>
               <p><strong>Fecha de lanzamiento:</strong> {{ movie.date }}</p>
+              <h2>{{ movie.session }}</h2>
+
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
+            <select @click="loadSessions(movie.id)">
+              <option value="">Selecciona una sesión</option>
+              <option v-for="session in sessions" :key="session.id" :value="session.id">{{ session.start_time }}
+              </option>
+            </select>
             <div class="trailer">
-              <i class="gg-play-button-o"></i>
+
+              <a :href="movie.trailer" target="_blank"><i class="gg-play-button-o"> </i></a>
+
             </div>
+
           </div>
 
         </li>
@@ -36,6 +46,7 @@ export default {
   data() {
     return {
       movies: [],
+      sessions: [],
       currentIndex: 0,
       slideWidth: 300,
       numVisibleSlides: 3
@@ -47,16 +58,20 @@ export default {
       return this.movies.slice(this.currentIndex, endIndex);
     }
   },
+
   async mounted() {
     try {
       const response = await fetch('http://localhost:8000/api/movies')
       const data = await response.json()
       this.movies = data
+
     } catch (error) {
       console.error('Error fetching movies:', error)
     }
+   
   },
   methods: {
+
     prevSlide() {
       if (this.currentIndex > 0) {
         this.currentIndex--;
@@ -73,6 +88,16 @@ export default {
       // Aquí puedes agregar la lógica para comprar tickets
       // Por ejemplo, redirigir a la página de compra de tickets
       navigateTo(`/${movieId}`);
+    },
+    async loadSessions(movieId) {
+      try {
+        const response = await fetch(`http://localhost:8000/api/movies/${movieId}/sessions`);
+        const data = await response.json();
+        this.sessions = data;
+        console.log('Sesiones cargadas:', this.sessions); // Agregar este console.log
+      } catch (error) {
+        console.error('Error fetching sessions:', error);
+      }
     }
   }
 }
@@ -90,6 +115,7 @@ export default {
   flex-direction: column;
   background-color: #accdec;
 }
+
 .trailer {
   font-size: 0.9em;
   line-height: 1.4;
@@ -98,15 +124,18 @@ export default {
   transition: opacity 0.4s ease-in-out;
   font-family: "Arimo", sans-serif;
 }
+
 .movie-card:hover .trailer {
-  opacity: 1;    
-  transition-delay:0.3s;
+  opacity: 1;
+  transition-delay: 0.3s;
 
 }
+
 .movie-card:hover img {
   filter: brightness(60%) blur(3px);
 
 }
+
 .movie-image {
   border-radius: 5px;
   height: 466px;
@@ -119,25 +148,28 @@ export default {
 }
 
 .movie-card:hover .content .gg-play-button-o {
-  opacity: 1; /* Появление при наведении */
+  opacity: 1;
+  /* Появление при наведении */
 }
 
 
 .gg-play-button-o:hover {
-  color: orange; 
+  color: orange;
 }
-.gg-play-button-o{
+
+.gg-play-button-o {
   box-sizing: border-box;
-    position: absolute;
-    display: block;
-    transform: scale(var(--ggs, 3.5));
-    width: 22px;
-    height: 22px;
-    border: 2px solid;
-    border-radius: 20px;
-    top: 228px;
-    color:antiquewhite ;
+  position: absolute;
+  display: block;
+  transform: scale(var(--ggs, 3.5));
+  width: 22px;
+  height: 22px;
+  border: 2px solid;
+  border-radius: 20px;
+  top: 228px;
+  color: antiquewhite;
 }
+
 div {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;

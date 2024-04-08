@@ -26,6 +26,7 @@ class MovieController extends Controller
             'description' => 'required|string',
             'image' => 'required|string',
             'date' => 'required|date',
+            'trailer' => 'required|string',
             'total_seats' => 'required|integer',
         ]);
 
@@ -40,6 +41,7 @@ class MovieController extends Controller
             'description' => 'required|string',
             'image' => 'required|string',
             'date' => 'required|date',
+            'trailer' => 'required|string',
             'total_seats' => 'required|integer',
         ]);
 
