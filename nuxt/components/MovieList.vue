@@ -27,9 +27,9 @@
             </select>
             <div class="trailer">
 
-              <a :href="movie.trailer" target="_blank"><a :href="movie.trailer" target="_blank"><i class="gg-play-button-o">  </i></a>      </a>
+              <a :href="movie.trailer" target="_blank"><i class="gg-play-button-o"> </i></a>
 
-          </div>
+            </div>
 
           </div>
 
@@ -68,7 +68,6 @@ export default {
     } catch (error) {
       console.error('Error fetching movies:', error)
     }
-   
   },
   methods: {
 
