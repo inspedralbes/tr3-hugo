@@ -1,26 +1,22 @@
 <!-- Component Navheader -->
 <template>
-    <div>
-        <header class="header">
-      <div class="logo">
-        <img src="../public/img/logo.png" alt="Logo">
-      </div>
+  <div>
+    <header class="header">
       <nav class="navigation">
         <ul>
           <li><a href="#">Inicio</a></li>
           <li><a href="#">Películas</a></li>
-          <li><a href="#">Próximos Estrenos</a></li>
           <li><a href="#">Ofertas</a></li>
           <li><a href="#">Contacto</a></li>
         </ul>
       </nav>
       
     </header>
-    </div>
+  </div>
 </template>
 
 <script>
-  
+
 </script>
 
 <style scoped>
@@ -51,10 +47,10 @@
 
 .navigation ul li a {
   text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    font-size: x-large;
-    padding: 28px;
+  color: #fff;
+  font-weight: bold;
+  font-size: x-large;
+  padding: 28px;
 }
 
 .user-actions .btn {

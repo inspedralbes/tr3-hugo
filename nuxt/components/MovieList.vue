@@ -20,16 +20,16 @@
 
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
-            <select @click="loadSessions(movie.id)">
+            <select @change="loadSessions(movie.id)">
               <option value="">Selecciona una sesión</option>
               <option v-for="session in sessions" :key="session.id" :value="session.id">{{ session.start_time }}
               </option>
             </select>
             <div class="trailer">
 
-              <a :href="movie.trailer" target="_blank"><i class="gg-play-button-o"> </i></a>
+              <a :href="movie.trailer" target="_blank"><a :href="movie.trailer" target="_blank"><i class="gg-play-button-o">  </i></a>      </a>
 
-            </div>
+          </div>
 
           </div>
 

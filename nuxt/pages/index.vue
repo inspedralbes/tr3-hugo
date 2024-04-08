@@ -1,10 +1,5 @@
 <template>
-    <!-- Cabecera -->
-    <!-- add favicon -->
-
-   <!-- add Header component -->
-   <!-- Hero --> 
-<Header />
+ <Navheader />
     <main class="main">
       <section class="hero">
         <div class="hero-content">
@@ -30,19 +25,17 @@
       </section>
 
     </main>
-
-    <!-- Footer -->
 </template>
 
 <script>
 
-
 export default {
- 
+
 }
 </script>
 
-<style scoped>
+<style>
+
 .hero-content{
   padding: 12px;
   border-radius: 10px;

@@ -29,6 +29,10 @@
               <input type="text" id="trailer" v-model="newMovie.trailer" required>
             </div>
             <div>
+              <label for="trailer">Trailer:</label>
+              <input type="text" id="trailer" v-model="newMovie.trailer" required>
+            </div>
+            <div>
               <label for="totalSeats">Total de asientos:</label>
               <input type="number" id="totalSeats" v-model="newMovie.total_seats" required>
             </div>
