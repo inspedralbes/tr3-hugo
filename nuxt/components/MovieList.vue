@@ -20,7 +20,7 @@
 
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
-            <select @change="loadSessions(movie.id)">
+            <select @click="loadSessions(movie.id)">
               <option value="">Selecciona una sesión</option>
               <option v-for="session in sessions" :key="session.id" :value="session.id">{{ session.start_time }}
               </option>

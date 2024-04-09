@@ -27,9 +27,8 @@ export const useStore = defineStore('main', {
     },
     saveReservations() {
       return { reservations: this.reservations, tickets: this.tickets };
-
-
     }
+      
 
   },
 });

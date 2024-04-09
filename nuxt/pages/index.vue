@@ -1,5 +1,4 @@
 <template>
- <Navheader />
     <main class="main">
       <section class="hero">
         <div class="hero-content">
@@ -36,13 +35,7 @@ export default {
 
 <style>
 
-.hero-content{
-  padding: 12px;
-  border-radius: 10px;
-  width: 65%;
-  position: relative;
-  max-width: 600px; 
-}
+
 .hero {
   /* add this background-image: https://shotdeck.com/assets/images/stills/thumb/small_BZL3LJQN.jpg; */
   

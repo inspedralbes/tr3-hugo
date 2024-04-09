@@ -98,7 +98,7 @@ export default {
     },
     async reservarAsientos() {
       const userStore = useStore();
-      
+
       // Verificar si el usuario está autenticado
       if (!userStore.user) {
         alert('Debes iniciar sesión para reservar asientos.');
@@ -127,7 +127,7 @@ export default {
             userStore.addReservation(seat);
             userStore.updateTotalPrice(totalPrice);
             //add ticket with movie title and seat id
-            userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row});
+            userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
           }
         }
         this.fetchDataSeats();
@@ -137,6 +137,9 @@ export default {
         console.error('Error reserving seats:', error);
       }
     },
+
+
+
 
 
   },
