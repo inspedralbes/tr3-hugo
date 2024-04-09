@@ -4,7 +4,8 @@
         <div class="hero-content">
           <h1 class="hero-title">¡Compra tus entradas ahora!</h1>
           <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.</p>
-          <a href="/movies" class="btn btn-primary">Explora películas</a>
+          <nuxt-link to="/movies" class="btn btn-primary">Explora películas</nuxt-link>
+
         </div>
       </section>
 

@@ -1,13 +1,20 @@
-<!-- Component Navheader -->
-<template>
+a<template>
   <div>
     <header class="header">
       <nav class="navigation">
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Películas</a></li>
-          <li><a href="#">Ofertas</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li>
+            <nuxt-link to="/">Home</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/movies">Movies</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/login">Login</nuxt-link>
+          </li>
+          <li>
+            <nuxt-link to="/register">Register</nuxt-link>
+          </li>
         </ul>
       </nav>
       
@@ -49,8 +56,8 @@
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  font-size: x-large;
-  padding: 28px;
+  font-size: 16px; /* Modificado para hacerlo más pequeño */
+  padding: 10px 20px; /* Ajustado para hacerlo más compacto */
 }
 
 .user-actions .btn {

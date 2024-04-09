@@ -1,8 +1,10 @@
 <template>
+
+
   <div class="body">
-    <header class="page-header">
-      <h1>¡Bienvenido a CineFlix!</h1>
-      <p>Descubre las mejores películas en cartelera</p>
+    <header>
+        <Header />
+
     </header>
     <div class="carousel-container">
       <button class="carousel-btn prev" @click="prevSlide" :disabled="currentIndex === 0">❮</button>

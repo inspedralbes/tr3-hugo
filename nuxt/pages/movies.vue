@@ -6,7 +6,6 @@
 
 <script>
 import MovieList from '@/components/MovieList.vue'; // Ajusta la ruta según tu estructura
-
 export default {
   components: {
     MovieList,
