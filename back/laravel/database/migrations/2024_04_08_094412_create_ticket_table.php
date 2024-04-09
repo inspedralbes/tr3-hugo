@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->integer('price_per_seat');
+            $table->integer('total_seats');
             $table->unsignedBigInteger('movie_id');
             $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('total_seats');
             $table->unsignedBigInteger('seat_id');
             $table->foreign('seat_id')->references('id')->on('seats')->onDelete('cascade');
-            $table->integer('price_per_seat');
-            $table->timestamps();
         });
     }
 

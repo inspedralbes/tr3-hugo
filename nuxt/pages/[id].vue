@@ -96,48 +96,54 @@ export default {
         }
       }
     },
-    async reservarAsientos() {
-      const userStore = useStore();
+   async reservarAsientos() {
+    const userStore = useStore();
 
-      // Verificar si el usuario está autenticado
-      if (!userStore.user) {
+    // Verificar si el usuario está autenticado
+    if (!userStore.user) {
         alert('Debes iniciar sesión para reservar asientos.');
-        //redirigir a login
+        // Redirigir a la página de inicio de sesión
         navigateTo('/login');
         return;
-      }
-      try {
+    }
+
+    try {
         let totalPrice = 0;
 
         for (const seatId of this.selectedSeats) {
-          const seat = this.seats.find(seat => seat.id === seatId);
-          if (seat) {
-            totalPrice += seat.vip ? this.vipPrice : this.price;
-            const response = await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${seatId}/reserve`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ id: seatId, occupied: true })
-            });
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+            const seat = this.seats.find(seat => seat.id === seatId);
+            if (seat) {
+                totalPrice += seat.vip ? this.vipPrice : this.price;
+                const response = await fetch(`http://localhost:8000/api/tickets`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        movie_id: this.id,
+                        user_id: userStore.user.id,
+                        total_seats: this.selectedSeats.length,
+                        seat_id: seatId,
+                        price_per_seat: seat.vip ? this.vipPrice : this.price
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // Agregar el asiento reservado al store
+                userStore.addReservation(seat);
+                userStore.updateTotalPrice(totalPrice);
+                // Agregar un ticket con el título de la película y el ID del asiento
+                userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
             }
-            // guardar objeto de seat en el store
-            userStore.addReservation(seat);
-            userStore.updateTotalPrice(totalPrice);
-            //add ticket with movie title and seat id
-            userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
-          }
         }
         this.fetchDataSeats();
         this.selectedSeats = []; // Limpiar los asientos seleccionados después de la reserva exitosa
         navigateTo('/reservas');
-      } catch (error) {
+    } catch (error) {
         console.error('Error reserving seats:', error);
-      }
-    },
-
+    }
+},
 
 
 
