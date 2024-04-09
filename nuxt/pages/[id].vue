@@ -133,8 +133,19 @@ export default {
                 // Agregar el asiento reservado al store
                 userStore.addReservation(seat);
                 userStore.updateTotalPrice(totalPrice);
+                //asiento ocupado, cambiar imagen si esta reservado
+                seat.occupied = true;
+
+
                 // Agregar un ticket con el título de la película y el ID del asiento
                 userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
+                await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${seatId}/reserve`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: seatId, occupied: true })
+                });
             }
         }
         this.fetchDataSeats();
@@ -249,6 +260,15 @@ export default {
 
 
 }
+.seats-container div:hover {
+  background-color: #00ff00;
+  /* Color for available seats on hover */
+}
+.seats-container div.occupied:hover {
+  background-color: #ff0000;
+  /* Color for occupied seats on hover */
+}
+
 
 .seats-container div.selected {
   background-color: #ffa500;
