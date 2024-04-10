@@ -1,11 +1,7 @@
 <template>
-
-
   <div class="body">
-    <header>
-        <Header />
+    <Header />
 
-    </header>
     <div class="carousel-container">
       <button class="carousel-btn prev" @click="prevSlide" :disabled="currentIndex === 0">❮</button>
       <ul class="carousel-list">
@@ -14,12 +10,10 @@
           <div class="movie-card">
             <img :src="movie.image" alt="Cartel de la película {{ movie.title }}" class="movie-image">
             <div class="movie-details">
-
               <h2>{{ movie.title }}</h2>
               <p class="description">{{ movie.description }}</p>
               <p><strong>Fecha de lanzamiento:</strong> {{ movie.date }}</p>
               <h2>{{ movie.session }}</h2>
-
               <button class="buy-ticket-btn" @click="buyTicket(movie.id)">Comprar Tickets</button>
             </div>
             <select @click="loadSessions(movie.id)">
@@ -28,13 +22,9 @@
               </option>
             </select>
             <div class="trailer">
-
               <a :href="movie.trailer" target="_blank"><i class="gg-play-button-o"> </i></a>
-
             </div>
-
           </div>
-
         </li>
       </ul>
       <button class="carousel-btn next" @click="nextSlide"
@@ -72,7 +62,6 @@ export default {
     }
   },
   methods: {
-
     prevSlide() {
       if (this.currentIndex > 0) {
         this.currentIndex--;
@@ -108,14 +97,6 @@ export default {
 /* Estilos para el componente */
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/play-button-o.css');
 
-.body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #333;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  background-color: #accdec;
-}
 
 .trailer {
   font-size: 0.9em;
@@ -150,7 +131,6 @@ export default {
 
 .movie-card:hover .content .gg-play-button-o {
   opacity: 1;
-  /* Появление при наведении */
 }
 
 
@@ -160,15 +140,15 @@ export default {
 
 .gg-play-button-o {
   box-sizing: border-box;
-  position: absolute;
-  display: block;
-  transform: scale(var(--ggs, 3.5));
-  width: 22px;
-  height: 22px;
-  border: 2px solid;
-  border-radius: 20px;
-  top: 228px;
-  color: antiquewhite;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs, 3.5));
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 20px;
+    top: -600px;
+    color: antiquewhite;
 }
 
 div {
@@ -241,11 +221,12 @@ div {
 
 .movie-card {
   display: flex;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 372px;
-  align-items: center;
+    /* padding: 12px; */
+    background-color: #f0f1f1e6;
+    border-radius: 5px;
+    box-shadow: 20px 1px 16px 7px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    margin-top: 27%;
+    align-items: center;
 }
 </style>

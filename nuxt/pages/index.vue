@@ -1,56 +1,71 @@
 <template>
+  <div>
+    <Header />
     <main class="main">
       <section class="hero">
         <div class="hero-content">
           <h1 class="hero-title">¡Compra tus entradas ahora!</h1>
-          <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.</p>
+          <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.
+          </p>
           <nuxt-link to="/movies" class="btn btn-primary">Explora películas</nuxt-link>
 
         </div>
       </section>
 
-      <!-- Películas en Cartelera -->
       <section class="movies">
         <h2 class="section-title">Películas en Cartelera</h2>
-        <div class="movie-list">
-          <!-- Aquí se generaría dinámicamente la lista de películas -->
-          <div class="movie">
-            <img src="../public/img/BZL3LJQN.jpg" alt="Película 1">
-            <h3 class="movie-title">Título de la Película</h3>
-            <p class="movie-description">Breve descripción de la película.</p>
-            <a href="#" class="btn btn-buy">Comprar Entradas</a>
-          </div>
-          <!-- Repetir para cada película -->
-        </div>
+        <MovieList :movies="movies" />
+
       </section>
-
     </main>
+  </div>
 </template>
-
 <script>
+// Importa el componente MovieList
+import MovieList from '@/components/MovieList.vue'; // Ajusta la ruta según tu estructura
 
 export default {
+  components: {
+    MovieList,
+  },
+  data() {
+    return {
+      movies: [], // Arreglo para almacenar las películas
+    };
+  },
+  async mounted() {
+    try {
+      // Realiza la solicitud para obtener las películas
+      const response = await fetch('http://localhost:8000/api/movies');
+      const data = await response.json();
+      this.movies = data; // Asigna las películas obtenidas al arreglo de datos
+      console.log('Datos de películas:', this.movies);
 
-}
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  },
+};
 </script>
 
-<style>
-
-
+<style scoped>
 .hero {
-  /* add this background-image: https://shotdeck.com/assets/images/stills/thumb/small_BZL3LJQN.jpg; */
-  
-  background-image: url('../public/img/8K8T7RDW.jpg'); /* Ruta de tu nueva imagen de fondo */
-  background-size: cover; /* Ajusta el tamaño del fondo para cubrir toda la sección */
-  background-position: center; /* Ajusta la posición del fondo */
-  background-repeat: no-repeat; /* Evita que el fondo se repita */
-    color: #e0e0e0;
-    text-align: center;
-    padding: 100px 0;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-  }
+
+  background-image: url('../public/img/8K8T7RDW.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 100px 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: -20px;
+  position: relative;
+  margin-left: -20px;
+
+}
 
 
 
@@ -58,27 +73,17 @@ export default {
   padding: 20px;
 }
 
-.hero {
-  background-color: #f8f9fa;
-    color: #d4cece;
-    text-align: center;
-    padding: 100px 0;
-    margin-left: -20px;
-    top: -20px;
-    position: relative;
-    margin-right: -20px;
-}
 
 .hero-title {
   font-size: 2.5em;
   margin-bottom: 20px;
   /* añade estilos originales */
-  color: #e4e2e2; 
+  color: #e4e2e2;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  
+
 }
 
 .hero-subtitle {
@@ -90,7 +95,7 @@ export default {
   text-transform: uppercase;
   letter-spacing: 1px;
 
-  
+
 }
 
 .btn-primary {
@@ -151,6 +156,4 @@ export default {
 .btn-buy:hover {
   background-color: #218838;
 }
-
-
 </style>
