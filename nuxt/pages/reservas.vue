@@ -1,26 +1,36 @@
 <template>
-  <div>
-    <!-- Título que se mostrará solo una vez -->
+  <div class="background">
+  <div class="ticket-container">
     <div class="card">
-      <div class="card-header">
-        <h2>Tickets Comprados:</h2>
-      </div>
       <div class="card-body">
-        <ul class="ticket-list">
-          <li v-for="(ticket, index) in tickets" :key="ticket.id" class="ticket-item">
-            <!-- Mostrar título de la película solo si es diferente al ticket anterior -->
-            <h3 v-if="index === 0 || ticket.movie !== tickets[index - 1].movie">{{ ticket.movie }}</h3>
-            <div class="movie-info">
-              <p>Fecha: {{ ticket.date }}</p>
-              <p>Asiento: {{ ticket.seat }}</p>
-              <p>Fila: {{ ticket.row }}</p>
-              <p>Precio: {{ ticket.price }}€</p>
+        <!-- Título que se mostrará solo una vez -->
+        <h2>Tus Compras de Asientos</h2>
+
+        <!-- Iterar sobre los tickets -->
+        <div v-for="(ticket, index) in tickets" :key="ticket.id">
+          <div class="ticket-card">
+            <div class="ticket-header">
+              <!-- Mostrar título de la película solo si es diferente al ticket anterior -->
+              <h3 v-if="index === 0 || ticket.movie !== tickets[index - 1].movie">{{ ticket.movie }}</h3>
             </div>
-          </li>
-        </ul>
+            <div class="ticket-content">
+              <div class="movie-info">
+                <p>Fecha: {{ ticket.date }}</p>
+                <p>Asiento: {{ ticket.seat }}</p>
+                <p>Fila: {{ ticket.row }}</p>
+                <p>Columna: {{ ticket.column }}</p>
+              </div>
+              <div class="seat-info">
+                <!-- Mostrar precio total -->
+                <h3>Total: {{ totalPrice }}€</h3>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -29,19 +39,45 @@ import { useStore } from '../stores/index.js';
 export default {
   setup() {
     const userStore = useStore();
+    userStore.saveTotalPrice();
+    userStore.saveReservations();
 
     return {
-      tickets: userStore.tickets
+      tickets: userStore.tickets,
+      totalPrice: userStore.totalPrice,
+      reservas: userStore.reservas
     };
   }
 };
 </script>
 
 <style scoped>
-/* Estilos para las compras */
-.ticket-list {
-  list-style: none;
-  padding: 0;
+
+/* fondo de pantalla estilo cinema */
+.background {
+  background-image: url(/_nuxt/public/img/ticket.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    height: 100vh;
+}
+.ticket-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 80%;
+  max-width: 800px;
+  border-radius: 10px;
+  margin-top: 50px;
+  background: #a89ca4;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 20px;
 }
 
 .ticket-card {
@@ -50,6 +86,10 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   overflow: hidden;
+}
+
+.ticket-header {
+  padding: 15px 20px;
 }
 
 .ticket-content {
@@ -61,10 +101,8 @@ export default {
   flex: 1;
 }
 
-.movie-info h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.2em;
+.movie-info p {
+  margin: 5px 0;
 }
 
 .seat-info {
@@ -72,47 +110,13 @@ export default {
   text-align: right;
 }
 
-.seat-info p {
+.seat-info h3 {
   margin: 0;
 }
-.card {
 
-  width: 300px;
-  border-radius: 10px;
-  margin: 50px;
-  background: #f6f2d7;
-  overflow: hidden;
+@media (max-width: 768px) {
+  .card {
+    width: 95%;
+  }
 }
-.card-header {
-  height: 70px;
-  border: 2px solid #836602;
-  border-bottom: 2px dotted #836602;
-  border-radius: 10px 10px 0 0;
-  position: relative;
-}
-.card-header:before, .card-header:after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background: #fff;
-  border-radius: 100%;
-  bottom: -12px;
-  border: 2px solid #836602;
-  box-sizing: border-box;
-}
-.card-header:before { 
-  left: -13px;
-}
-.card-header:after {
-  right: -13px;
-}
-.card-body {
-  height: 200px;
-  border: 2px solid #836602;
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  height: fit-content
-}
-
 </style>

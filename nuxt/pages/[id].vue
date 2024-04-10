@@ -81,80 +81,81 @@ export default {
       }
     },
     async seleccionarAsiento(id, row, column) {
-      console.log(`Asiento seleccionado: Fila ${row}, Columna ${column}`);
-      const seat = this.seats.find(seat => seat.id === id); // Obtener la información del asiento actual
-      if (seat) {
+      const seat = this.seats.find(seat => seat.id === id);
+      if (seat && !seat.occupied) { // Verificar si el asiento está ocupado
         if (!this.selectedSeats.includes(id)) {
           this.selectedSeats.push(id);
-          // Comprueba si el asiento es VIP y muestra una alerta si lo es
           if (seat.vip) {
             alert('Asiento VIP seleccionado');
-
           }
         } else {
           this.selectedSeats = this.selectedSeats.filter(seatId => seatId !== id);
         }
+      } else {
+        alert('Este asiento ya está ocupado. Por favor, selecciona otro.');
       }
-    },
-   async reservarAsientos() {
-    const userStore = useStore();
 
-    // Verificar si el usuario está autenticado
-    if (!userStore.user) {
+    },
+    async reservarAsientos() {
+      const userStore = useStore();
+
+      // Verificar si el usuario está autenticado
+      if (!userStore.user) {
         alert('Debes iniciar sesión para reservar asientos.');
         // Redirigir a la página de inicio de sesión
+        //ir a /login
         navigateTo('/login');
         return;
-    }
+      }
 
-    try {
+      try {
         let totalPrice = 0;
 
         for (const seatId of this.selectedSeats) {
-            const seat = this.seats.find(seat => seat.id === seatId);
-            if (seat) {
-                totalPrice += seat.vip ? this.vipPrice : this.price;
-                const response = await fetch(`http://localhost:8000/api/tickets`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        movie_id: this.id,
-                        user_id: userStore.user.id,
-                        total_seats: this.selectedSeats.length,
-                        seat_id: seatId,
-                        price_per_seat: seat.vip ? this.vipPrice : this.price
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                // Agregar el asiento reservado al store
-                userStore.addReservation(seat);
-                userStore.updateTotalPrice(totalPrice);
-                //asiento ocupado, cambiar imagen si esta reservado
-                seat.occupied = true;
-
-
-                // Agregar un ticket con el título de la película y el ID del asiento
-                userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
-                await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${seatId}/reserve`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id: seatId, occupied: true })
-                });
+          const seat = this.seats.find(seat => seat.id === seatId);
+          if (seat) {
+            totalPrice += seat.vip ? this.vipPrice : this.price;
+            const response = await fetch(`http://localhost:8000/api/tickets`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                movie_id: this.id,
+                user_id: userStore.user.id,
+                total_seats: this.selectedSeats.length,
+                seat_id: seatId,
+                price_per_seat: seat.vip ? this.vipPrice : this.price
+              })
+            });
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            // Agregar el asiento reservado al store
+            userStore.addReservation(seat);
+            userStore.updateTotalPrice(totalPrice);
+            //asiento ocupado, cambiar imagen si esta reservado
+            seat.occupied = true;
+
+
+            // Agregar un ticket con el título de la película y el ID del asiento
+            userStore.addTicket({ movie: this.movie.title, seat: seatId, row: seat.row });
+            await fetch(`http://localhost:8000/api/movies/${this.id}/seats/${seatId}/reserve`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ id: seatId, occupied: true })
+            });
+          }
         }
         this.fetchDataSeats();
         this.selectedSeats = []; // Limpiar los asientos seleccionados después de la reserva exitosa
         navigateTo('/reservas');
-    } catch (error) {
+      } catch (error) {
         console.error('Error reserving seats:', error);
-    }
-},
+      }
+    },
 
 
 
@@ -202,11 +203,6 @@ export default {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.movie-image:hover {
-  transform: scale3d(1.5, 1.5, 1.5);
-  transition: transform 0.5s;
-
-}
 
 .reserve-button {
   background-color: #ff3366;
@@ -260,10 +256,12 @@ export default {
 
 
 }
+
 .seats-container div:hover {
   background-color: #00ff00;
   /* Color for available seats on hover */
 }
+
 .seats-container div.occupied:hover {
   background-color: #ff0000;
   /* Color for occupied seats on hover */

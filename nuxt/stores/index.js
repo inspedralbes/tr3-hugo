@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 
 export const useStore = defineStore('main', {
   state: () => ({
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user: typeof localStorage !== 'undefined' ? JSON.parse(localStorage.getItem('user')) || null : null,
     reservations: [],
     totalPrice: 0,
     tickets: [],
@@ -11,7 +11,9 @@ export const useStore = defineStore('main', {
   actions: {
     setUser(user) {
       this.user = user;
-      localStorage.setItem('user', JSON.stringify(user));
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
     },
     addReservation(reservation) {
       this.reservations.push(reservation);
@@ -27,7 +29,13 @@ export const useStore = defineStore('main', {
     },
     saveReservations() {
       return { reservations: this.reservations, tickets: this.tickets };
-    }
+    },
+    saveTotalPrice() {
+      return this.totalPrice;
+    },
+    returnUser() {
+      return this.user;
+    } 
       
 
   },

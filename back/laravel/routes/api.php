@@ -46,3 +46,4 @@ Route::post('/tickets', [TicketController::class, 'store']);
 Route::get('/tickets/{id}', [TicketController::class, 'show']);
 Route::put('/tickets/{id}', [TicketController::class, 'update']);
 Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
+Route::get('/tickets/{id}/user', [TicketController::class, 'showUserTickets']);

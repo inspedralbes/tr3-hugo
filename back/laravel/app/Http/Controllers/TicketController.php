@@ -76,4 +76,10 @@ class TicketController extends Controller
         //respuesta
         return response()->json(['message' => 'Ticket deleted successfully'], 200);
     }
+    // Quiero mostrar todos los tickets de un usuario
+    public function showUserTickets($id)
+    {
+        $tickets = Ticket::where('user_id', $id)->get();
+        return response()->json($tickets);
+    }
 }
