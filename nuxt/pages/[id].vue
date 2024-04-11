@@ -1,4 +1,6 @@
 <template>
+  <!-- header component -->
+  <Header />
   <div class="movie-details" v-if="movie">
     <div class="movie-info">
       <h2>{{ movie.title }}</h2>
@@ -85,6 +87,7 @@ export default {
       if (seat && !seat.occupied) { // Verificar si el asiento está ocupado
         if (!this.selectedSeats.includes(id)) {
           this.selectedSeats.push(id);
+          console.log('Asiento seleccionado:', id, row, column);
           if (seat.vip) {
             alert('Asiento VIP seleccionado');
           }
@@ -174,7 +177,7 @@ export default {
   display: grid;
   justify-content: space-between;
   padding: 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/img/pexels-nathan-engel-436413.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/img/F5CV2K4Y.jpg);
   color: white;
   background-size: cover;
   height: 100vh;

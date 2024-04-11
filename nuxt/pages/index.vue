@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="more-movies">
-          <img src="https://i.gifer.com/MQyJ.gif" alt="Ver más películas" class="more-movies-gif" />
+          <img src="https://media.tenor.com/2-fFcDedfCAAAAAi/arrow-point.gif" alt="Ver más películas" class="more-movies-gif" />
           <nuxt-link to="/movies" class="more-movies-link">Ver más películas</nuxt-link>
         </div>
       </section>
@@ -56,7 +56,10 @@ export default {
 
 <style scoped>
 .main {
-  padding: 20px;
+  padding: 0px;
+  background-color: #e1eaf3;
+  min-height: 100vh;
+  
 }
 
 .hero {

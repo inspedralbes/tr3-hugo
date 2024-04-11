@@ -1,13 +1,16 @@
 <template>
+  <!-- component Header -->
+  <Header />
     <div class="background">
-      <div class="register-container">
+      <div class="register-container">  
+
         <h2 class="register-title">Registrarse</h2>
         <input v-model="registerForm.name" type="text" placeholder="Nombre" required class="register-input">
         <input v-model="registerForm.email" type="email" placeholder="Correo electrónico" required class="register-input">
         <input v-model="registerForm.password" type="password" placeholder="Contraseña" required class="register-input">
         <button type="submit" @click="submitForm()" class="register-button">Register</button>
         <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
-        <p>¿Ya tienes una cuenta? <router-link to="/login" class="login-link">Iniciar sesión</router-link></p>
+        <p class="tienes_cuenta">¿Ya tienes una cuenta? <router-link to="/login" class="login-link">Iniciar sesión</router-link></p>
       </div>
     </div>
   </template>
@@ -62,7 +65,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-     background-image: url('https://wallpaperaccess.com/full/6400181.jpg');
+    background-image: url('../public/img/L3I3XGJF.jpg');
     background-size: cover;
     background-position: center;
   }
@@ -70,7 +73,7 @@
   .register-container {
     text-align: center;
     padding: 20px;
-    background-color: #000;
+    background-color: #0000008f;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 35%;
@@ -81,7 +84,7 @@
   
   /* Estilos de texto y enlaces */
   .register-title {
-    color: #ff00ff;
+    color: #0067a7;
     margin-bottom: 20px;
   }
   
@@ -89,7 +92,7 @@
     width: 84%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2px solid #ff00ff;
+    border: 2px solid #0067a7;
     border-radius: 5px;
     background-color: #111;
     color: #fff;
@@ -99,24 +102,28 @@
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #ff00ff;
+    background-color: #0067a7;
     color: #000;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .register-button:hover {
-    background-color: #ff88ff;
+    background-color: #034066;
   }
   
   .login-link {
-    color: #ff00ff;
+    color: #1177b6;
     text-decoration: underline;
   }
   
   /* Estilos de mensaje de error */
   .error-message {
     color: #ff0000;
+    margin-top: 10px;
+  }
+  .tienes_cuenta{
+    color: #ebeff1;
     margin-top: 10px;
   }
   </style>

@@ -1,4 +1,6 @@
 <template>
+    <Header />
+
   <div class="background">
     <div class="login-container">
       <h2 class="login-title">Iniciar sesión</h2>
@@ -60,7 +62,7 @@ methods: {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://wallpaperaccess.com/full/6400181.jpg');
+  background-image: url('../public/img/L3I3XGJF.jpg');
   /* Cambia 'ruta/a/tu/imagen.jpg' por la ruta de tu imagen de fondo */
   background-size: cover;
   /* Ajusta la imagen para que cubra toda la pantalla */
@@ -71,8 +73,8 @@ methods: {
 .login-container {
   text-align: center;
   padding: 20px;
-  background-color: #000;
-  border-radius: 10px;
+  background-color: #0000008f;
+    border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 35%;
   position: relative;
@@ -81,7 +83,7 @@ methods: {
 }
 
 .login-title {
-  color: #ff00ff;
+  color: #009fff;
   /* Color rosa neon */
   margin-bottom: 20px;
 }
@@ -90,7 +92,7 @@ methods: {
   width: 80%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid #ff00ff;
+  border: 2px solid #009fff;
   /* Borde rosa neon */
   border-radius: 5px;
   background-color: #111;
@@ -103,7 +105,7 @@ methods: {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #ff00ff;
+  background-color: #009fff;
   /* Botón rosa neon */
   color: #000;
   /* Texto negro */
@@ -112,7 +114,7 @@ methods: {
 }
 
 .login-button:hover {
-  background-color: #ff88ff;
+  background-color: #0067a7;
   /* Transición a un tono más claro de rosa neon */
 }
 </style>

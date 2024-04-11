@@ -75,11 +75,11 @@ export default {
       }
     },
     nextSlide() {
-      const maxIndex = this.movies.length - this.numVisibleSlides;
-      if (this.currentIndex < maxIndex) {
-        this.currentIndex++;
-      }
-    },
+  const maxIndex = this.movies.length - this.numVisibleSlides + 1;
+  if (this.currentIndex < maxIndex) {
+    this.currentIndex++;
+  }
+},
     buyTicket(movieId) {
       console.log('ID de la película:', movieId);
       // Aquí puedes agregar la lógica para comprar tickets
@@ -101,6 +101,10 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding: 20px;
+  background-color: #ccccccd5;
+}
 .movie-card {
   display: flex;
   flex-direction: column;
@@ -214,15 +218,24 @@ select {
 
 .movie-card {
   display: flex;
-  padding: 12px;
-  background-color: #f0f1f1e6;
-  border-radius: 5px;
-  box-shadow: 20px 1px 16px 7px rgba(0, 0, 0, 0.1);
-  width: 380px;
-  margin-top: 27%;
-  align-items: center;
-  height: 80%;
+    padding: 10px;
+    background-color: #f0f1f1e6;
+    border-radius: 5px;
+    box-shadow: 20px 1px 16px 7px rgba(0, 0, 0, 0.1);
+    width: 364px;
+    /* margin-top: 0%; */
+    align-items: center;
+    height: 85%;
+    /* margin-left: 8px;*/
+    flex-direction: column;
+    transition: transform 0.3s ease; /* Agregué una animación de transformación al pasar el mouse */
+
 }
+
+
+
+
+
 .trailer img {
   width: 70px; 
   height: 70px;
