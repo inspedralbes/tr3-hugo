@@ -61,7 +61,7 @@ export default {
     this.user = userStore.returnUser();
     if (this.user) {
       // Fetch user tickets
-      fetch(`http://localhost:8000/api/tickets/${this.user.id}/user`)
+      fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/tickets/${this.user.id}/user`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');

@@ -17,7 +17,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await fetch('http://localhost:8000/api/movies');
+      const response = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies');
       const data = await response.json();
       this.movies = data;
       console.log('Datos de películas:', this.movies);

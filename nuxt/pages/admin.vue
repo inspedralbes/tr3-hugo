@@ -111,7 +111,7 @@ export default {
     },
     async fetchMovies() {
       try {
-        const response = await fetch('http://localhost:8000/api/movies');
+        const response = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies');
         const data = await response.json();
         this.movies = data;
       } catch (error) {
@@ -121,7 +121,7 @@ export default {
     async addMovie() {
       try {
         // Agregar la película
-        const movieResponse = await fetch('http://localhost:8000/api/movies', {
+        const movieResponse = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export default {
         this.movies.push(movieData);
 
         // Agregar la sesión
-        const sessionResponse = await fetch(`http://localhost:8000/api/movies/${movieData.id}/sessions`, {
+        const sessionResponse = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${movieData.id}/sessions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -162,7 +162,7 @@ export default {
     async editMovie(movieId) {
   try {
     // Obtener los detalles de la película
-    const response = await fetch(`http://localhost:8000/api/movies/${movieId}`);
+    const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${movieId}`);
     const movieData = await response.json();
 
     // Asignar los detalles de la película a newMovie
@@ -178,7 +178,7 @@ export default {
 async updateMovie() {
   try {
     // Actualizar la película
-    const response = await fetch(`http://localhost:8000/api/movies/${this.newMovie.id}`, {
+    const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.newMovie.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ async updateMovie() {
 },
     async deleteMovie(id) {
       try {
-        await fetch(`http://localhost:8000/api/movies/${id}`, {
+        await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${id}`, {
           method: 'DELETE',
         });
         this.movies = this.movies.filter(movie => movie.id !== id);
@@ -213,7 +213,7 @@ async updateMovie() {
 
     async addSession() {
       try {
-        const response = await fetch(`http://localhost:8000/api/movies/${this.movieId}/sessions`, {
+        const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.movieId}/sessions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
