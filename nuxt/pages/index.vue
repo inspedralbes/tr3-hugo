@@ -5,52 +5,61 @@
       <section class="hero">
         <div class="hero-content">
           <h1 class="hero-title">¡Compra tus entradas ahora!</h1>
-          <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.
-          </p>
+          <p class="hero-subtitle">Descubre los últimos estrenos y asegura tu asiento desde la comodidad de tu hogar.</p>
           <nuxt-link to="/movies" class="btn btn-primary">Explora películas</nuxt-link>
-
         </div>
       </section>
 
       <section class="movies">
         <h2 class="section-title">Películas en Cartelera</h2>
-        <MovieList :movies="movies" />
-
+        <div class="movie-list">
+          <div class="movie-item" v-for="(movie, index) in movies.slice(0, 4)" :key="movie.id">
+            <img :src="movie.image" :alt="movie.title" class="movie-image" />
+            <p class="movie-title">{{ movie.title }}</p>
+          </div>
+        </div>
+        <div class="more-movies">
+          <img src="https://i.gifer.com/MQyJ.gif" alt="Ver más películas" class="more-movies-gif" />
+          <nuxt-link to="/movies" class="more-movies-link">Ver más películas</nuxt-link>
+        </div>
       </section>
     </main>
   </div>
 </template>
-<script>
-// Importa el componente MovieList
-import MovieList from '@/components/MovieList.vue'; // Ajusta la ruta según tu estructura
 
+<script>
 export default {
-  components: {
-    MovieList,
-  },
   data() {
     return {
-      movies: [], // Arreglo para almacenar las películas
+      movies: [],
     };
   },
-  async mounted() {
-    try {
-      // Realiza la solicitud para obtener las películas
-      const response = await fetch('http://localhost:8000/api/movies');
-      const data = await response.json();
-      this.movies = data; // Asigna las películas obtenidas al arreglo de datos
-      console.log('Datos de películas:', this.movies);
-
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-    }
+  mounted() {
+    this.fetchMovies();
+  },
+  methods: {
+    async fetchMovies() {
+      try {
+        const response = await fetch('http://localhost:8000/api/movies');
+        if (!response.ok) {
+          throw new Error('Failed to fetch movies');
+        }
+        const data = await response.json();
+        this.movies = data;
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-.hero {
+.main {
+  padding: 20px;
+}
 
+.hero {
   background-image: url('../public/img/8K8T7RDW.jpg');
   background-size: cover;
   background-position: center;
@@ -58,44 +67,30 @@ export default {
   color: #e0e0e0;
   text-align: center;
   padding: 100px 0;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  top: -20px;
-  position: relative;
-  margin-left: -20px;
-
 }
 
-
-
-.main {
-  padding: 20px;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
-
 
 .hero-title {
   font-size: 2.5em;
   margin-bottom: 20px;
-  /* añade estilos originales */
   color: #e4e2e2;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-
 }
 
 .hero-subtitle {
   font-size: 1em;
   margin-bottom: 30px;
-  /* añade estilos originales */
   color: #000000;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
-
-
 }
 
 .btn-primary {
@@ -112,48 +107,54 @@ export default {
 
 .section-title {
   font-size: 1.6em;
-}
-
-.movies {
-  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .movie-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.movie {
-  width: 30%;
-  margin-bottom: 30px;
+.movie-item {
+  margin: 10px;
   text-align: center;
 }
 
-.movie img {
-  width: 100%;
-  height: auto;
+.movie-image {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .movie-title {
-  margin: 20px 0;
-  font-size: 1.5em;
+  font-size: 1.2em;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.more-movies {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 20px;
 }
 
-.movie-description {
-  margin-bottom: 20px;
+.more-movies-gif {
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: auto;
 }
 
-.btn-buy {
-  background-color: #28a745;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
+.more-movies-link {
+  margin-left: 10px;
+  font-weight: bold;
   text-decoration: none;
+  color: #007bff; /* Puedes cambiar el color según tu preferencia */
 }
 
-.btn-buy:hover {
-  background-color: #218838;
+.more-movies-link:hover {
+  color: #0056b3; /* Cambia el color al pasar el mouse */
 }
 </style>
