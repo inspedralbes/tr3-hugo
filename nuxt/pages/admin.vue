@@ -29,10 +29,6 @@
               <input type="text" id="trailer" v-model="newMovie.trailer" required>
             </div>
             <div>
-              <label for="trailer">Trailer:</label>
-              <input type="text" id="trailer" v-model="newMovie.trailer" required>
-            </div>
-            <div>
               <label for="totalSeats">Total de asientos:</label>
               <input type="number" id="totalSeats" v-model="newMovie.total_seats" required>
             </div>
@@ -68,17 +64,50 @@
             <td>{{ movie.description }}</td>
             <td><img :src="movie.image" alt=""></td>
             <td>{{ movie.date }}</td>
+            <td>{{ movie.trailer }}</td>
             <td>{{ movie.total_seats }}</td>
             <td>
-              <button @click="editMovie(movie.id)">Editar</button>
+              <button @click="openEditModal(movie)">Editar</button>
               <button @click="deleteMovie(movie.id)">Eliminar</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div v-if="showEditModal" class="modal">
+      <div class="modal-content">
+        <span class="close" @click="showEditModal = false">&times;</span>
+        <h2>Editar película</h2>
+        <form @submit.prevent="updateMovie">
+          <div>
+            <label for="editTitle">Título:</label>
+            <input type="text" id="editTitle" v-model="editMovie.title" required>
+          </div>
+          <div>
+            <label for="editDescription">Descripción:</label>
+            <textarea id="editDescription" v-model="editMovie.description" required></textarea>
+          </div>
+          <div>
+            <label for="editImage">Imagen:</label>
+            <input type="text" id="editImage" v-model="editMovie.image" required>
+          </div>
+          <div>
+            <label for="editDate">Fecha:</label>
+            <input type="date" id="editDate" v-model="editMovie.date" required>
+          </div>
+          <div>
+            <label for="editTrailer">Trailer:</label>
+            <input type="text" id="editTrailer" v-model="editMovie.trailer" required>
+          </div>
+          <div>
+            <label for="editTotalSeats">Total de asientos:</label>
+            <input type="number" id="editTotalSeats" v-model="editMovie.total_seats" required>
+          </div>
+          <button type="submit">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -87,6 +116,7 @@ export default {
     return {
       movies: [],
       showModal: false,
+      showEditModal: false,
       newMovie: {
         title: '',
         description: '',
@@ -97,7 +127,16 @@ export default {
       },
       newSession: {
         start_time: ''
-      }
+      },
+      editMovie: {
+        id: '',
+        title: '',
+        description: '',
+        image: '',
+        trailer: '',
+        date: '',
+        total_seats: 0,
+      },
     };
   },
   mounted() {
@@ -120,7 +159,6 @@ export default {
     },
     async addMovie() {
       try {
-        // Agregar la película
         const movieResponse = await fetch('http://localhost:8000/api/movies', {
           method: 'POST',
           headers: {
@@ -131,7 +169,6 @@ export default {
         const movieData = await movieResponse.json();
         this.movies.push(movieData);
 
-        // Agregar la sesión
         const sessionResponse = await fetch(`http://localhost:8000/api/movies/${movieData.id}/sessions`, {
           method: 'POST',
           headers: {
@@ -159,44 +196,7 @@ export default {
         console.error('Error adding movie and session:', error);
       }
     },
-    async editMovie(movieId) {
-  try {
-    // Obtener los detalles de la película
-    const response = await fetch(`http://localhost:8000/api/movies/${movieId}`);
-    const movieData = await response.json();
 
-    // Asignar los detalles de la película a newMovie
-    this.newMovie = movieData;
-
-    // Abrir el modal
-    this.showModal = true;
-  } catch (error) {
-    console.error('Error fetching movie:', error);
-  }
-},
-
-async updateMovie() {
-  try {
-    // Actualizar la película
-    const response = await fetch(`http://localhost:8000/api/movies/${this.newMovie.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.newMovie),
-    });
-    const updatedMovie = await response.json();
-
-    // Actualizar la película en la lista de películas
-    const index = this.movies.findIndex(movie => movie.id === updatedMovie.id);
-    this.movies.splice(index, 1, updatedMovie);
-
-    // Cerrar el modal
-    this.showModal = false;
-  } catch (error) {
-    console.error('Error updating movie:', error);
-  }
-},
     async deleteMovie(id) {
       try {
         await fetch(`http://localhost:8000/api/movies/${id}`, {
@@ -207,30 +207,40 @@ async updateMovie() {
         console.error('Error deleting movie:', error);
       }
     },
-    openSessionModal() {
-      this.showSessionModal = true;
+    openEditModal(movie) {
+      this.showEditModal = true;
+      this.editMovie = {
+        id: movie.id,
+        title: movie.title,
+        description: movie.description,
+        image: movie.image,
+        trailer: movie.trailer,
+        date: movie.date,
+        total_seats: movie.total_seats,
+      };
     },
 
-    async addSession() {
+    async updateMovie() {
       try {
-        const response = await fetch(`http://localhost:8000/api/movies/${this.movieId}/sessions`, {
-          method: 'POST',
+        const response = await fetch(`http://localhost:8000/api/movies/${this.editMovie.id}`, {
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(this.newSession),
+          body: JSON.stringify(this.editMovie),
         });
-        const data = await response.json();
-        // Puedes hacer algo con la respuesta si lo necesitas
-        console.log('Sesión agregada:', data);
-        // Opcional: puedes cargar nuevamente las sesiones de la película después de agregar una nueva sesión
-        this.loadSessions(this.movieId);
-        this.newSession = {
-          start_time: ''
-        };
-        this.showSessionModal = false;
+        if (response.ok) {
+          // Actualizar la película en la lista
+          const index = this.movies.findIndex(movie => movie.id === this.editMovie.id);
+          if (index !== -1) {
+            this.movies.splice(index, 1, this.editMovie);
+          }
+          this.showEditModal = false;
+        } else {
+          console.error('Error al editar la película:', response.statusText);
+        }
       } catch (error) {
-        console.error('Error adding session:', error);
+        console.error('Error al editar la película:', error);
       }
     },
   }
@@ -328,6 +338,5 @@ img {
   border-style: none;
   height: 134px;
   width: 104px;
-
 }
 </style>

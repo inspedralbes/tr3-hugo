@@ -4,6 +4,6 @@ export default defineNuxtConfig({
   //add css normalize
   css: ['normalize.css'],
   modules: ['@pinia/nuxt', '@nuxt/image', '@nuxtjs/robots'],
-  
+  ssr:false,
   telemetry: false,
 })

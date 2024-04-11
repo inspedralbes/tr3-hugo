@@ -228,5 +228,6 @@ div {
     width: 420px;
     margin-top: 27%;
     align-items: center;
+    height: 80%;
 }
 </style>
