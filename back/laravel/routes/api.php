@@ -23,6 +23,8 @@ Route::get('/movies/{movie_id}/seats', [SeatController::class, 'index']);
 Route::post('/movies/{movie_id}/seats/{seat_id}/reserve', [SeatController::class, 'reserve']);
 
 Route::post('/movies/{movie_id}/add_seats', [SeatController::class, 'addSeats']);
+// add vip seats to a movie in the row 6
+Route::post('/movies/{movie_id}/add_vip_seats', [SeatController::class, 'addVipSeats']);
 Route::delete('/movies/{movie_id}/remove_seats', [SeatController::class, 'removeSeats']);
 Route::get('/movies', [MovieController::class, 'index']);
 Route::post('/movies', [MovieController::class, 'store']);

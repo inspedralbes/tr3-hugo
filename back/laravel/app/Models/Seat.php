@@ -14,6 +14,7 @@ class Seat extends Model
         'occupied',
         'row',
         'column',
+        'vip',
     ];
 
     public function movie()

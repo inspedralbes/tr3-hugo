@@ -51,4 +51,20 @@ class SeatController extends Controller
 
         return response()->json(['message' => 'Seats removed successfully']);
     }
+    //add vip seats to a movie in the row 6
+    public function addVipSeats($movie_id)
+    {
+        // Agregar asientos VIP para la fila 6
+        for ($column = 1; $column <= 10; $column++) {
+            Seat::create([
+                'movie_id' => $movie_id,
+                'row' => 6,
+                'column' => $column,
+                'vip' => true,
+                'occupied' => false,
+            ]);
+        }
+
+        return response()->json(['message' => 'VIP seats added successfully']);
+    }
 }
