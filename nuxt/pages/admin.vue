@@ -150,7 +150,7 @@ export default {
     },
     async fetchMovies() {
       try {
-        const response = await fetch('http://localhost:8000/api/movies');
+        const response = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies');
         const data = await response.json();
         this.movies = data;
       } catch (error) {
@@ -159,7 +159,7 @@ export default {
     },
     async addMovie() {
       try {
-        const movieResponse = await fetch('http://localhost:8000/api/movies', {
+        const movieResponse = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export default {
         const movieData = await movieResponse.json();
         this.movies.push(movieData);
 
-        const sessionResponse = await fetch(`http://localhost:8000/api/movies/${movieData.id}/sessions`, {
+        const sessionResponse = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${movieData.id}/sessions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ export default {
 
     async deleteMovie(id) {
       try {
-        await fetch(`http://localhost:8000/api/movies/${id}`, {
+        await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${id}`, {
           method: 'DELETE',
         });
         this.movies = this.movies.filter(movie => movie.id !== id);
@@ -207,6 +207,7 @@ export default {
         console.error('Error deleting movie:', error);
       }
     },
+  
     openEditModal(movie) {
       this.showEditModal = true;
       this.editMovie = {
@@ -222,7 +223,7 @@ export default {
 
     async updateMovie() {
       try {
-        const response = await fetch(`http://localhost:8000/api/movies/${this.editMovie.id}`, {
+        const response = await fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies/${this.editMovie.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

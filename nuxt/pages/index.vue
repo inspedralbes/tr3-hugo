@@ -40,7 +40,7 @@ export default {
   methods: {
     async fetchMovies() {
       try {
-        const response = await fetch('http://localhost:8000/api/movies');
+        const response = await fetch('http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/movies');
         if (!response.ok) {
           throw new Error('Failed to fetch movies');
         }

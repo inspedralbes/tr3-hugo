@@ -35,7 +35,8 @@ export const useStore = defineStore('main', {
     },
     returnUser() {
       return this.user;
-    } 
+    },
+   
       
 
   },

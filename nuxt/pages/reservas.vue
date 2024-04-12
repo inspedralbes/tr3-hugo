@@ -15,15 +15,10 @@
             </div>
             <div class="ticket-content">
               <div class="movie-info">
-                <p>Fecha: {{ ticket.date }}</p>
                 <p>Asiento: {{ ticket.seat }}</p>
                 <p>Fila: {{ ticket.row }}</p>
-                <p>Columna: {{ ticket.column }}</p>
               </div>
-              <div class="seat-info">
-                <!-- Mostrar precio total -->
-                <h3>Total: {{ totalPrice }}€</h3>
-              </div>
+            
             </div>
           </div>
         </div>
@@ -37,6 +32,13 @@
 import { useStore } from '../stores/index.js';
 
 export default {
+  data() {
+    return {
+      tickets: [],
+      totalPrice: 0,
+      reservas: [],
+    };
+  },
   setup() {
     const userStore = useStore();
     userStore.saveTotalPrice();
@@ -45,9 +47,10 @@ export default {
     return {
       tickets: userStore.tickets,
       totalPrice: userStore.totalPrice,
-      reservas: userStore.reservas
+      reservas: userStore.reservas,
     };
-  }
+  },
+  
 };
 </script>
 
@@ -55,7 +58,7 @@ export default {
 
 /* fondo de pantalla estilo cinema */
 .background {
-  background-image: url(/_nuxt/public/img/ticket.jpg);
+  background-image: url(../public/img/ticket.jpg);
     background-size: cover;
     background-position: center;
     font-family: 'Roboto', sans-serif;

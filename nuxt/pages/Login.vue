@@ -25,7 +25,7 @@ export default {
 },
 methods: {
     submitForm() {
-      fetch(`http://localhost:8000/api/login`, {
+      fetch(`http://tr3a22hugtrigon.daw.inspedralbes.cat/back/laravel/public/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
