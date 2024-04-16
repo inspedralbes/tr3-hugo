@@ -1,6 +1,6 @@
 <!-- components/Seat.vue -->
 <template>
-    <div :class="{ seat: true, ocupada: seatStatus, disponible: !seatStatus }" @click="toggleSeatStatus"><img v-if="seatStatus" src="../public/img/disponible.png" alt="Butaca ocupada" class="butaca_ocupada"/> <img v-else src="../public/img/disponible.png" alt="Butaca disponible" class="butaca_disponible"/></div>
+    <div :class="{ seat: true, ocupada: seatStatus, disponible: !seatStatus }" @click="toggleSeatStatus"><img v-if="seatStatus" src="../img/disponible.png" alt="Butaca ocupada" class="butaca_ocupada"/> <img v-else src="../img/disponible.png" alt="Butaca disponible" class="butaca_disponible"/></div>
 </template>
 
 <script>

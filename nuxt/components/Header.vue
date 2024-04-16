@@ -1,51 +1,46 @@
 <template>
   <div>
-    <!-- Mantén el header como el primer elemento en el DOM -->
-    <header class="header">
+    <!-- Header -->
+    <header class="header">  
+
       <div class="logo">
         <img src="https://cdn-icons-png.flaticon.com/256/4183/4183802.png" alt="Logo" />
       </div>
       <nav class="navigation">
         <ul>
+          <!-- nombre de la pagina CineMa -->
           <li>
-            <nuxt-link to="/" class="nav-link">Home</nuxt-link>
+            <nuxt-link to="/" class="nav-link">Inicio</nuxt-link>
           </li>
           <li>
-            <nuxt-link to="/movies" class="nav-link">Movies</nuxt-link>
+            <nuxt-link to="/movies" class="nav-link">Películas</nuxt-link>
           </li>
           <li>
             <nuxt-link to="/perfil" class="nav-link">Perfil</nuxt-link>
           </li>
-         
         </ul>
       </nav>
       <div class="user-actions">
-        <nuxt-link to="/login" class="btn btn-login">Login</nuxt-link>
-        <nuxt-link to="/register" class="btn btn-register">Register</nuxt-link>
+        <nuxt-link to="/login" class="btn btn-login">Iniciar sesión</nuxt-link>
+        <nuxt-link to="/register" class="btn btn-register">Registrarse</nuxt-link>
       </div>
     </header>
-    <!-- Añade un margen superior al contenido principal para evitar que se oculte detrás del header -->
-    <main style="margin-top: 80px;">
-      <!-- Aquí va el contenido principal de tu página -->
-    </main>
+
   </div>
 </template>
-
-<script>
-</script>
 
 <style scoped>
 .header {
   background-color: #1b1b1b;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    left: 0px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  left: 0px;
 }
 
 .logo img {

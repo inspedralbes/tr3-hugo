@@ -62,7 +62,7 @@ methods: {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../public/img/L3I3XGJF.jpg');
+  background-image: url('../img/L3I3XGJF.jpg');
   /* Cambia 'ruta/a/tu/imagen.jpg' por la ruta de tu imagen de fondo */
   background-size: cover;
   /* Ajusta la imagen para que cubra toda la pantalla */

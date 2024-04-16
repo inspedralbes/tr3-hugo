@@ -29,6 +29,14 @@
 
 <script>
 export default {
+  //add language es
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'es',
+      },
+    };
+  },
   data() {
     return {
       movies: [],
@@ -63,7 +71,7 @@ export default {
 }
 
 .hero {
-  background-image: url('../public/img/8K8T7RDW.jpg');
+  background-image: url('../img/8K8T7RDW.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -80,7 +88,7 @@ export default {
 .hero-title {
   font-size: 2.5em;
   margin-bottom: 20px;
-  color: #e4e2e2;
+  color: #ffffff;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   font-weight: bold;
   text-transform: uppercase;
@@ -90,15 +98,15 @@ export default {
 .hero-subtitle {
   font-size: 1em;
   margin-bottom: 30px;
-  color: #000000;
+  color: #333333;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #007bff; 
+  color: #ffffff; 
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;

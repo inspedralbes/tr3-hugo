@@ -177,7 +177,7 @@ export default {
   display: grid;
   justify-content: space-between;
   padding: 20px;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/img/F5CV2K4Y.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/F5CV2K4Y.jpg);
   color: white;
   background-size: cover;
   height: 100vh;

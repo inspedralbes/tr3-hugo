@@ -65,7 +65,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../public/img/L3I3XGJF.jpg');
+    background-image: url('../img/L3I3XGJF.jpg');
     background-size: cover;
     background-position: center;
   }

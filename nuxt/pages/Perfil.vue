@@ -1,37 +1,39 @@
 <template>
-  <Header />
-  <div class="background">
-    <div class="profile-container" style="overflow-y: auto;">
-      <div class="card_profile">
-        <h2 class="profile-title">Perfil de Usuario</h2>
-        <div v-if="user" class="profile-info">
-          <p><strong>Name:</strong> {{ user.name }}</p>
-          <p><strong>Email:</strong> {{ user.email }}</p>
-          <div v-if="userTickets.length > 0">
-            <h3>Tickets del usuario:</h3>
-            <ul class="ticket-list">
-              <li v-for="ticket in userTickets" :key="ticket.id" class="ticket-item">
-                <div class="ticket-details">
-                  <p><strong>Película:</strong> {{ ticket.movie_id }}</p>
-                  <p><strong>Asiento:</strong> {{ ticket.seat_id }}</p>
-                  <p><strong>Precio:</strong> {{ ticket.price_per_seat }}</p>
-                </div>
-              </li>
-            </ul>
+  <div>
+    <Header />
+    <div class="background">
+      <div class="profile-container" style="overflow-y: auto;">
+        <div class="card_profile">
+          <h2 class="profile-title">Perfil de Usuario</h2>
+          <div v-if="user" class="profile-info">
+            <p><strong>Nombre:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <div v-if="userTickets.length > 0">
+              <h3>Tickets del usuario:</h3>
+              <ul class="ticket-list">
+                <li v-for="ticket in userTickets" :key="ticket.id" class="ticket-item">
+                  <div class="ticket-details">
+                    <p><strong>Película:</strong> {{ ticket.movie_id }}</p>
+                    <p><strong>Asiento:</strong> {{ ticket.seat_id }}</p>
+                    <p><strong>Precio:</strong> {{ ticket.price_per_seat }}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              <p>No hay tickets asociados a este usuario.</p>
+            </div>
           </div>
           <div v-else>
-            <p>No hay tickets asociados a este usuario.</p>
+            <p>No hay información de usuario disponible</p>
+            <!-- Otra acción que quieras mostrar si el usuario no está autenticado -->
           </div>
         </div>
-        <div v-else>
-          <p>No hay información de usuario disponible</p>
-          <!-- Otra acción que quieras mostrar si el usuario no está autenticado -->
+        <div>
+          <!-- Otros componentes o contenido -->
         </div>
+        <button @click="logout" class="logout-button">Cerrar sesión</button>
       </div>
-      <div>
-        <!-- Otros componentes o contenido -->
-      </div>
-      <button @click="logout" class="logout-button">Cerrar sesión</button>
     </div>
   </div>
 </template>
@@ -87,7 +89,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../public/img/perf.png');
+  background-image: url('../img/perf.png');
   background-size: cover;
   background-position: center;
   font-family: 'Roboto', sans-serif;
@@ -103,13 +105,13 @@ export default {
 
 .card_profile {
   background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-    width: 30%;
-    /* margin: 1px auto; */
-    position: relative;
-    margin-top: 45%;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  /* margin: 1px auto; */
+  position: relative;
+  margin-top: 45%;
 }
 
 .profile-title {
