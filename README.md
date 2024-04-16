@@ -10,10 +10,10 @@ Un cop comenceu heu de canviar aquesta explicació amb la corresponent al vostre
 El projecte s'ha de poder desplegar en mode desenvolupament simplement fent docker compose up
 
 # Aquest fitxer ha de contenir com a mínim:
- * Nom dels integrants
- * Nom del projecte
- * Petita descripció
+ * Hugo Tripiana Gonzalez
+ * Cinema
+ * Aplicació de venta d'entradas per al cinema, butaques, sales, pelicules amb les seves descripcions etc.
  * Adreça del gestor de tasques (taiga, jira, trello...)
- * Adreça del prototip gràfic del projecte (Penpot, figma, moqups...)
- * URL de producció (quan la tingueu)
+ * https://tree.taiga.io/project/a22hugtrigon-cinema/timeline
+ * http://tr3a22hugtrigon.daw.inspedralbes.cat
  * Estat: (explicació d'en quin punt està)
